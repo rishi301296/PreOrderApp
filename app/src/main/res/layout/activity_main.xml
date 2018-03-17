@@ -4,28 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+    android:background="@drawable/image1"
     tools:context="com.example.rishiprotimbose.preorderapp.MainActivity">
 
     <TextView
         android:id="@+id/tvpreorder"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:background="#554911ff"
-        android:fontFamily="sans-serif"
-        android:text="@string/preordering_app"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="@string/preorder_app"
         android:textAlignment="center"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#dd030f0f"
         android:textStyle="bold|italic"
         android:typeface="monospace"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059"
-        tools:targetApi="jelly_bean" />
+        app:layout_constraintVertical_bias="0.107" />
 
     <EditText
         android:id="@+id/etemail"
@@ -35,17 +33,17 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:focusedByDefault="true"
+        android:drawableEnd="@drawable/ic_action_email"
         android:drawableRight="@drawable/ic_action_email"
+        android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvpreorder"
-        app:layout_constraintVertical_bias="0.202"
-        android:drawableEnd="@drawable/ic_action_email" />
+        app:layout_constraintVertical_bias="0.261" />
 
     <EditText
         android:id="@+id/etpassword"
@@ -69,7 +67,7 @@
 
     <Button
         android:id="@+id/blogin"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -114,6 +112,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:progressDrawable="@android:color/holo_green_light"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

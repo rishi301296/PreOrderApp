@@ -8,5 +8,5 @@
     <string name="signup">SignUp</string>
     <string name="new_user_register">New User? Register</string>
     <string name="login">Login</string>
-    <string name="preordering_app">Preordering App</string>
+    <string name="preorder_app">Preorder App</string>
 </resources>
