@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "95681049874",
+    "firebase_url": "https://preorderapp-e841e.firebaseio.com",
+    "project_id": "preorderapp-e841e",
+    "storage_bucket": "preorderapp-e841e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95681049874:android:e2778439cb9ada69",
+        "android_client_info": {
+          "package_name": "com.example.rishiprotimbose.preorderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95681049874-8mo0pbqnc502lh1cu13t1cjtu38rnnnj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rishiprotimbose.preorderapp",
+            "certificate_hash": "55d1043a28302655a2acb00317560de1581a91f7"
+          }
+        },
+        {
+          "client_id": "95681049874-efcc9lgput6b4ac03tviv3nc7uq80p1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyKZWTgpZfliIV1jqLRHBgfo4gmHf6eOQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95681049874-efcc9lgput6b4ac03tviv3nc7uq80p1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

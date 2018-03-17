@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PreorderApp</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="signup">SignUp</string>
+    <string name="new_user_register">New User? Register</string>
+    <string name="login">Login</string>
+    <string name="preordering_app">Preordering App</string>
+</resources>
