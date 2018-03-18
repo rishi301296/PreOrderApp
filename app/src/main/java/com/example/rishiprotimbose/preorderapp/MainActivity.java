@@ -1,11 +1,14 @@
 package com.example.rishiprotimbose.preorderapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -18,13 +21,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private EditText email, password;
     private FirebaseAuth firebaseAuth;
     private ProgressBar progress;
     private Button login;
     private TextView signup;
+    private Boolean logging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         progress = findViewById(R.id.progressbarlogin);
 
+        logging = false;
         email = (EditText) findViewById(R.id.etemail);
         password = (EditText) findViewById(R.id.etpassword);
         signup = (TextView) findViewById(R.id.tvsignup);
@@ -42,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                login.setClickable(false);
                 userLogin();
+                login.setClickable(true);
             }
         });
 
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     clear_all();
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Error!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Wrong Email or Password!", Toast.LENGTH_LONG).show();
                     clear_all();
                 }
             }

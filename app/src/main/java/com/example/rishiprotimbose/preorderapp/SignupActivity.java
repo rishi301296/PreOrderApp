@@ -1,5 +1,6 @@
 package com.example.rishiprotimbose.preorderapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -20,19 +22,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.security.acl.Owner;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends Activity {
 
     private EditText name, email, password, phonenumber;
     private Button signup;
-    private FirebaseAuth firebaseAuth;
     private ProgressBar progress;
     private RadioButton customer, dealer;
     private Spinner spinner;
-    private TextView getlocation;
-    private RadioGroup group;
+    private CheckBox getlocation;
+
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +45,18 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference();
 
-        progress = (ProgressBar) findViewById(R.id.progressbarsignup);
-        name = (EditText) findViewById(R.id.etname);
-        password = (EditText) findViewById(R.id.etpassword);
-        email = (EditText) findViewById(R.id.etemail);
-        phonenumber = (EditText) findViewById(R.id.etphonenumber);
-        signup = (Button) findViewById(R.id.bsignup);
-        customer = (RadioButton) findViewById(R.id.rbcustomer);
-        dealer = (RadioButton) findViewById(R.id.rbdealer);
-        spinner = (Spinner) findViewById(R.id.sbusinesstype);
-        getlocation = (TextView) findViewById(R.id.tvgetlocation);
-        group = (RadioGroup) findViewById(R.id.rgownertype);
+        progress = findViewById(R.id.progressbarsignup);
+        name = findViewById(R.id.etname);
+        password = findViewById(R.id.etpassword);
+        email = findViewById(R.id.etemail);
+        phonenumber = findViewById(R.id.etphonenumber);
+        signup = findViewById(R.id.bsignup);
+        customer = findViewById(R.id.rbcustomer);
+        dealer = findViewById(R.id.rbdealer);
+        spinner = findViewById(R.id.sbusinesstype);
+        getlocation = findViewById(R.id.cbgetlocation);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,19 +118,18 @@ public class SignupActivity extends AppCompatActivity {
                     // or
                     // (if Owner = Dealer    ->    (Email, Name, PhoneNumber, Location, BusinessType))
 
-                    clear_all();
-
                     Toast.makeText(SignupActivity.this, "User Successfully Registered.", Toast.LENGTH_SHORT).show();
+                    clear_all();
                     Intent intent = new Intent(SignupActivity.this, ProfileActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 else if(task.getException() instanceof FirebaseAuthUserCollisionException) {
-                    Toast.makeText(SignupActivity.this, "Email already exists!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignupActivity.this, "Email already exists!", Toast.LENGTH_SHORT).show();
                     clear_all();
                 }
                 else {
-                    Toast.makeText(SignupActivity.this, "Error!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignupActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                     password.setText("");
                 }
             }
@@ -138,5 +142,27 @@ public class SignupActivity extends AppCompatActivity {
         password.setText("");
         email.setText("");
         phonenumber.setText("");
+    }
+
+    private class Customer {
+        private String Name, Email, Phone_Number;
+
+        public void setCustomerValues(String Name, String Email, String Phone_Number) {
+            this.Name = Name;
+            this.Email = Email;
+            this.Phone_Number = Phone_Number;
+        }
+
+        public String getCustomerName() {
+            return this.Name;
+        }
+
+        public String getCustomerEmail() {
+            return this.Email;
+        }
+
+        public String getCustomerPhone_Number() {
+            return this.Phone_Number;
+        }
     }
 }

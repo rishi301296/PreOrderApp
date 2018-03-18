@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@android:style/Theme.Black.NoTitleBar"
     android:background="@drawable/image1"
     tools:context="com.example.rishiprotimbose.preorderapp.SignupActivity">
 
@@ -195,7 +196,7 @@
     <Spinner
         android:id="@+id/sbusinesstype"
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -204,30 +205,33 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cbgetlocation"
-        app:layout_constraintHorizontal_bias="0.037"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etphonenumber"
         app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
         android:id="@+id/cbgetlocation"
-        android:layout_width="170dp"
-        android:layout_height="40dp"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:drawableEnd="@drawable/ic_action_getlocation"
         android:drawableRight="@drawable/ic_action_getlocation"
         android:text="@string/get_location"
+        android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="#7f111111"
-        android:textSize="17sp"
+        android:textSize="10sp"
+        android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etphonenumber"
-        app:layout_constraintVertical_bias="0.0"
-        android:drawableEnd="@drawable/ic_action_getlocation" />
+        app:layout_constraintVertical_bias="0.044" />
 
 </android.support.constraint.ConstraintLayout>
