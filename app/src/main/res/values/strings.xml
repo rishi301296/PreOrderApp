@@ -9,4 +9,7 @@
     <string name="new_user_register">New User? Register</string>
     <string name="login">Login</string>
     <string name="preorder_app">Preorder App</string>
+    <string name="get_location">Get Location</string>
+    <string name="dealer">Dealer</string>
+    <string name="customer">Customer</string>
 </resources>
