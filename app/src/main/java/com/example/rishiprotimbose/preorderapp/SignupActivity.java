@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,15 +30,19 @@ import java.security.acl.Owner;
 
 public class SignupActivity extends Activity {
 
-    private EditText name, email, password, phonenumber;
+    private EditText name, email, password, phonenumber, username;
     private Button signup;
     private ProgressBar progress;
     private RadioButton customer, dealer;
-    private Spinner spinner;
+    private Spinner businesstype;
     private CheckBox getlocation;
+    private ArrayAdapter adapter;
+    private static boolean logging;
+    private String latitude, longitude;
 
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference database;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +50,10 @@ public class SignupActivity extends Activity {
         setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
 
+        logging = false;
         progress = findViewById(R.id.progressbarsignup);
         name = findViewById(R.id.etname);
         password = findViewById(R.id.etpassword);
@@ -55,29 +62,37 @@ public class SignupActivity extends Activity {
         signup = findViewById(R.id.bsignup);
         customer = findViewById(R.id.rbcustomer);
         dealer = findViewById(R.id.rbdealer);
-        spinner = findViewById(R.id.sbusinesstype);
+        businesstype = findViewById(R.id.sbusinesstype);
         getlocation = findViewById(R.id.cbgetlocation);
+        latitude = "0";
+        longitude = "0";
+
+        adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.businesstype, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
+        businesstype.setAdapter(adapter);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                register();
+                if(!logging) {
+                    logging = true;
+                    register();
+                    logging = false;
+                }
             }
         });
 
         customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinner.setVisibility(View.INVISIBLE);
-                getlocation.setVisibility(View.INVISIBLE);
+                customerOn();
             }
         });
 
         dealer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinner.setVisibility(View.VISIBLE);
-                getlocation.setVisibility(View.VISIBLE);
+                dealerOn();
             }
         });
 
@@ -85,24 +100,21 @@ public class SignupActivity extends Activity {
 
     private void register() {
 
-        String Email = email.getText().toString().trim();
+        final String Email = email.getText().toString().trim();
         String Password = password.getText().toString().trim();
-        String Name = name.getText().toString().trim();
-        String PhoneNumber = phonenumber.getText().toString().trim();
-        String Location;
-    //    String BusinessType = spinner.getSelectedItem().toString();
-        String Owner;
+        final String Name = name.getText().toString().trim();
+        final String PhoneNumber = phonenumber.getText().toString().trim();
+        final String BusinessType = businesstype.getSelectedItem().toString();
+        final String Auth;
         if(customer.isChecked()) {
-            Owner = "Customer";
+            Auth = "Customer";
         }
         else {
-            Owner = "Dealer";
+            Auth = "Dealer";
         }
 
-        Toast.makeText(getApplicationContext(), Owner, Toast.LENGTH_SHORT).show();
-
-        if(TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password)) {
-            Toast.makeText(this, "Invalid Email or Password", Toast.LENGTH_SHORT).show();
+        if(TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Name) || TextUtils.isEmpty(PhoneNumber)) {
+            Toast.makeText(getApplicationContext(), "Missing Parameters!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -118,22 +130,57 @@ public class SignupActivity extends Activity {
                     // or
                     // (if Owner = Dealer    ->    (Email, Name, PhoneNumber, Location, BusinessType))
 
-                    Toast.makeText(SignupActivity.this, "User Successfully Registered.", Toast.LENGTH_SHORT).show();
+                    DatabaseReference reference = database.getReference("Users");
+                    Users new_user = new Users(Auth, Name, Email, PhoneNumber, BusinessType, latitude, longitude);
+                    final String Id = reference.push().getKey();
+                    reference.child(Id).child("Auth").setValue(Auth);
+                    reference.child(Id).child("Name").setValue(Name);
+                    reference.child(Id).child("Email").setValue(Email);
+                    reference.child(Id).child("PhoneNumber").setValue(PhoneNumber);
+                    reference.child(Id).child("Latitude").setValue("0");
+                    reference.child(Id).child("Longitude").setValue("0");
+                    if(Auth == "Customer") {
+                        reference.child(Id).child("BusinessType").setValue("NA");
+                    }
+                    else {
+                        reference.child(Id).child("BusinessType").setValue(BusinessType);
+                    }
+
                     clear_all();
-                    Intent intent = new Intent(SignupActivity.this, ProfileActivity.class);
+                    Toast.makeText(getApplicationContext(), "User Successfully Registered.", Toast.LENGTH_SHORT).show();
+                    Intent intent;
+                    if(Auth == "Customer") {
+                        intent = new Intent(getApplicationContext(), CustomerActivity.class);
+                    }
+                    else {
+                        intent = new Intent(getApplicationContext(), DealerActivity.class);
+                    }
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 else if(task.getException() instanceof FirebaseAuthUserCollisionException) {
-                    Toast.makeText(SignupActivity.this, "Email already exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Email already exists!", Toast.LENGTH_SHORT).show();
                     clear_all();
                 }
                 else {
-                    Toast.makeText(SignupActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Error!", Toast.LENGTH_SHORT).show();
                     password.setText("");
                 }
             }
         });
+    }
+
+    private void customerOn() {
+        clear_all();
+        businesstype.setVisibility(View.INVISIBLE);
+        getlocation.setVisibility(View.INVISIBLE);
+        getlocation.setChecked(false);
+    }
+
+    private void dealerOn() {
+        clear_all();
+        businesstype.setVisibility(View.VISIBLE);
+        getlocation.setVisibility(View.VISIBLE);
     }
 
     private void clear_all()
@@ -142,27 +189,8 @@ public class SignupActivity extends Activity {
         password.setText("");
         email.setText("");
         phonenumber.setText("");
-    }
-
-    private class Customer {
-        private String Name, Email, Phone_Number;
-
-        public void setCustomerValues(String Name, String Email, String Phone_Number) {
-            this.Name = Name;
-            this.Email = Email;
-            this.Phone_Number = Phone_Number;
-        }
-
-        public String getCustomerName() {
-            return this.Name;
-        }
-
-        public String getCustomerEmail() {
-            return this.Email;
-        }
-
-        public String getCustomerPhone_Number() {
-            return this.Phone_Number;
-        }
+        getlocation.setChecked(false);
+        latitude = "0";
+        longitude = "0";
     }
 }
