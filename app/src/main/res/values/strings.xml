@@ -12,4 +12,8 @@
     <string name="get_location">Get Location</string>
     <string name="dealer">Dealer</string>
     <string name="customer">Customer</string>
+    <string-array name="businesstype">
+        <item>Restaurants</item>
+        <item>Grocery Store</item>
+    </string-array>
 </resources>
