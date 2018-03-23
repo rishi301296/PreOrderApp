@@ -3,7 +3,6 @@ package com.example.rishiprotimbose.preorderapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,9 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,11 +23,9 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.security.acl.Owner;
-
 public class SignupActivity extends Activity {
 
-    private EditText name, email, password, phonenumber, username;
+    private EditText name, email, password, phonenumber;
     private Button signup;
     private ProgressBar progress;
     private RadioButton customer, dealer;
@@ -67,7 +62,7 @@ public class SignupActivity extends Activity {
         latitude = "0";
         longitude = "0";
 
-        adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.businesstype, android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.businesstype, android.R.layout.simple_gallery_item);
         adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
         businesstype.setAdapter(adapter);
 
@@ -113,8 +108,7 @@ public class SignupActivity extends Activity {
             Auth = "Dealer";
         }
 
-        if(TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Name) || TextUtils.isEmpty(PhoneNumber)) {
-            Toast.makeText(getApplicationContext(), "Missing Parameters!", Toast.LENGTH_SHORT).show();
+        if(!check_Validity(Auth, Email, Password, PhoneNumber, Name, getlocation)) {
             return;
         }
 
@@ -192,5 +186,14 @@ public class SignupActivity extends Activity {
         getlocation.setChecked(false);
         latitude = "0";
         longitude = "0";
+    }
+
+    private boolean check_Validity(String Auth, String Email, String Password, String PhoneNumber, String Name, CheckBox getlocation) {
+        if (TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Name) || TextUtils.isEmpty(PhoneNumber) || (Auth == "Dealer" && getlocation.isChecked() == false)) {
+            Toast.makeText(getApplicationContext(), "Missing Parameters!", Toast.LENGTH_SHORT).show();
+            clear_all();
+            return false;
+        }
+        return true;
     }
 }

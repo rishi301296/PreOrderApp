@@ -16,4 +16,5 @@
         <item>Restaurants</item>
         <item>Grocery Store</item>
     </string-array>
+    <string name="google_maps_API_key">AIzaSyBWQQHA20b1oRCUzaWAHFxPglUqLiO_DB0</string>
 </resources>

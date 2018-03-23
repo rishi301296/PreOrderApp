@@ -56,4 +56,32 @@ public class Users {
     public String getLongitude() {
         return Longitude;
     }
+
+    public void setAuth(String auth) {
+        Auth = auth;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    public void setBusinessType(String businessType) {
+        BusinessType = businessType;
+    }
+
+    public void setLatitude(String latitude) {
+        Latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        Longitude = longitude;
+    }
 }

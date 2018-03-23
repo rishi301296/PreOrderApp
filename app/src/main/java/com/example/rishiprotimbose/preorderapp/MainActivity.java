@@ -2,14 +2,10 @@ package com.example.rishiprotimbose.preorderapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,12 +16,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends Activity {
@@ -37,7 +31,6 @@ public class MainActivity extends Activity {
     private TextView signup;
     private static Boolean logging;
     private DatabaseReference reference;
-    private Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,21 +84,17 @@ public class MainActivity extends Activity {
                 progress.setVisibility(View.INVISIBLE);
                 if(task.isSuccessful()) {
 
-                    Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getApplicationContext(), "Logged In", Toast.LENGTH_SHORT).show();
 
-                    Query query = reference.child("Users").orderByChild("Email").equalTo(Email);
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    reference.child("Users").orderByChild("Email").startAt(Email).endAt(Email).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()) {
                                 for(DataSnapshot result : dataSnapshot.getChildren()) {
+                                //    Log.d("value", result.getKey());
+                                //    Log.d("Auth", result.child("Auth").getValue(String.class));
 
-
-                                    Users new_user = dataSnapshot.child("Users").child(result.getKey()).child("Auth").getValue(Users.class);
-                                    Toast.makeText(getApplicationContext(), new_user.getAuth(), Toast.LENGTH_SHORT).show();
-
-                                    /*
-                                    if(dataSnapshot.child("Users").child(result.getKey()).child("Auth").getValue().equals("Customer")) {
+                                    if(result.child("Auth").getValue(String.class).equals("Customer")) {
                                         Intent intent = new Intent(getApplicationContext(), CustomerActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         clear_all();
@@ -116,8 +105,7 @@ public class MainActivity extends Activity {
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         clear_all();
                                         startActivity(intent);
-                                    } */
-                                    break;
+                                    }
                                 }
                             }
                         }
