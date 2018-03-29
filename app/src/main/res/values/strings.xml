@@ -17,4 +17,6 @@
         <item>Grocery Store</item>
     </string-array>
     <string name="google_maps_API_key">AIzaSyBWQQHA20b1oRCUzaWAHFxPglUqLiO_DB0</string>
+    <string name="title_activity_dealer_get_location">Map</string>
+    <string name="enter_address_city_or_zip_code">Enter Address, City or Zip Code</string>
 </resources>

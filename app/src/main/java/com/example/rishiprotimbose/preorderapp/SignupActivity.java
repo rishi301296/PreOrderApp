@@ -2,13 +2,14 @@ package com.example.rishiprotimbose.preorderapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends Activity {
 
+    public static final int REQUEST_CODE_GETLOCATION = 404;
     private EditText name, email, password, phonenumber;
     private Button signup;
     private ProgressBar progress;
@@ -66,12 +68,15 @@ public class SignupActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
         businesstype.setAdapter(adapter);
 
+        customerOn();
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!logging) {
                     logging = true;
-                    register();
+                    Toast.makeText(getApplicationContext(), latitude + ", "+ longitude, Toast.LENGTH_SHORT).show();
+                //    register();
                     logging = false;
                 }
             }
@@ -91,6 +96,44 @@ public class SignupActivity extends Activity {
             }
         });
 
+        getlocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!b) {
+                    latitude = "0";
+                    longitude = "0";
+                }
+                else {
+                    Intent intent = DealerGetLocationActivity.makeIntent(getApplicationContext());
+                    startActivityForResult(intent, REQUEST_CODE_GETLOCATION);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_CODE_GETLOCATION) {
+            if(resultCode == Activity.RESULT_OK) {
+                // Got Latitude and Longitude
+                latitude = DealerGetLocationActivity.getLatitude(data);
+                longitude = DealerGetLocationActivity.getLongitude(data);
+            }
+            else {
+                // Didn't get Latitude and Longitude
+                Toast.makeText(getApplicationContext(), "Not Got", Toast.LENGTH_SHORT).show();
+                reset_latlon();
+            }
+        }
+        else {
+            reset_latlon();
+        }
+    }
+
+    private void reset_latlon() {
+        getlocation.setChecked(false);
+        latitude = "0";
+        longitude = "0";
     }
 
     private void register() {
@@ -154,7 +197,7 @@ public class SignupActivity extends Activity {
                 }
                 else if(task.getException() instanceof FirebaseAuthUserCollisionException) {
                     Toast.makeText(getApplicationContext(), "Email already exists!", Toast.LENGTH_SHORT).show();
-                    clear_all();
+                    email.setText("");
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Error!", Toast.LENGTH_SHORT).show();
@@ -191,7 +234,6 @@ public class SignupActivity extends Activity {
     private boolean check_Validity(String Auth, String Email, String Password, String PhoneNumber, String Name, CheckBox getlocation) {
         if (TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password) || TextUtils.isEmpty(Name) || TextUtils.isEmpty(PhoneNumber) || (Auth == "Dealer" && getlocation.isChecked() == false)) {
             Toast.makeText(getApplicationContext(), "Missing Parameters!", Toast.LENGTH_SHORT).show();
-            clear_all();
             return false;
         }
         return true;
