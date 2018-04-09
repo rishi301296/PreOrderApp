@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends Activity {
+
+    final private static int REQ_CODE = 1024;
 
     private EditText email, password;
     private FirebaseAuth firebaseAuth;
@@ -95,10 +98,19 @@ public class MainActivity extends Activity {
                                 //    Log.d("Auth", result.child("Auth").getValue(String.class));
 
                                     if(result.child("Auth").getValue(String.class).equals("Customer")) {
-                                        Intent intent = new Intent(getApplicationContext(), CustomerActivity.class);
+                                        Users new_user = new Users();
+                                        new_user.setEmail(result.child("Email").getValue(String.class));
+                                        new_user.setName(result.child("Name").getValue(String.class));
+                                        new_user.setPhoneNumber(result.child("PhoneNumber").getValue(String.class));
+
+                                        Intent intent = new Intent(getApplicationContext(), CustomerProfileActivity.class);
+                                        intent.putExtra("Email", new_user.getEmail());
+                                        intent.putExtra("Name", new_user.getName());
+                                        intent.putExtra("PhoneNumber", new_user.getPhoneNumber());
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
                                         clear_all();
-                                        startActivity(intent);
+                                        startActivityForResult(intent, REQ_CODE);
                                     }
                                     else {
                                         Intent intent = new Intent(getApplicationContext(), DealerActivity.class);
@@ -117,6 +129,12 @@ public class MainActivity extends Activity {
                     });
                 }
                 else {
+                    task.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                     Toast.makeText(MainActivity.this, "Invalid Email or Password!", Toast.LENGTH_LONG).show();
                     clear_all();
                 }

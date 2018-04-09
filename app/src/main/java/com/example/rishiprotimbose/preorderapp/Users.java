@@ -1,7 +1,5 @@
 package com.example.rishiprotimbose.preorderapp;
 
-import java.lang.ref.SoftReference;
-
 /**
  * Created by Rishi Protim Bose on 19/03/2018.
  */
@@ -17,6 +15,16 @@ public class Users {
 
     public Users() {
 
+    }
+
+    public Users(String auth, String name, String email, String phoneNumber) {
+        Auth = auth;
+        Name = name;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        BusinessType = "NA";
+        Latitude = "0";
+        Longitude = "0";
     }
 
     public Users(String auth, String name, String email, String phoneNumber, String businessType, String latitude, String longitude) {
