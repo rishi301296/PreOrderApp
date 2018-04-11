@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:background="@drawable/topborder"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -187,75 +187,96 @@
         app:layout_constraintTop_toBottomOf="@+id/tvname"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <ImageButton
         android:id="@+id/bviewmap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/view_map"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bsearch"
-        app:layout_constraintHorizontal_bias="0.322"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.122" />
-
-    <Button
-        android:id="@+id/bsearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/search"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bfeedback"
-        app:layout_constraintHorizontal_bias="0.788"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.127" />
-
-    <Button
-        android:id="@+id/bfeedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/feedback"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.135" />
-
-    <Button
-        android:id="@+id/beditprofile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:layout_margin="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/edit_profile"
-        android:textSize="12sp"
+        android:background="@drawable/view_map"
+        android:contentDescription="@string/view_map"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bsearch"
+        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/bsearch"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/search"
+        android:contentDescription="@string/search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bfeedback"
+        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/bfeedback"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/feedback"
+        android:contentDescription="@string/feedback"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/beditprofile"
+        android:layout_width="27dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit"
+        android:contentDescription="@string/edit_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.864"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.012" />
+
+    <ImageButton
+        android:id="@+id/bsignout"
+        android:layout_width="27dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/signout"
+        android:contentDescription="@string/edit_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toEndOf="@+id/beditprofile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.012" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/mainfragment"
-        android:name=".ViewMapFragment"
+        android:name="com.example.rishiprotimbose.preorderapp.ViewMapFragment"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginBottom="8dp"

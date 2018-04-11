@@ -3,31 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#af706030"
+    android:layout_height="400dp"
+    android:layout_marginTop="250dp"
+    android:background="#affd64af"
     tools:context=".SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/search"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055" />
 
     <Spinner
         android:id="@+id/ssearch"
@@ -39,33 +20,38 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textAlignment="center"
+        android:prompt="@string/select_business_type"
+        android:background="@drawable/shape_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <ListView
-        android:id="@+id/lvsearch"
+    <TextView
+        android:id="@+id/tvsearch"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="25dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text=":: Search Result ::"
+        android:textAlignment="center"
+        android:textSize="16sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ssearch"
-        app:layout_constraintVertical_bias="0.651" />
+        app:layout_constraintVertical_bias="0.101" />
 
     <Button
-        android:id="@+id/bsearch"
+        android:id="@+id/bsearch2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -77,7 +63,27 @@
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ssearch" />
+        app:layout_constraintTop_toBottomOf="@+id/ssearch"
+        app:layout_constraintVertical_bias="0.112" />
+
+    <ListView
+        android:id="@+id/lvsearch"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        android:background="@drawable/shape_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </android.support.constraint.ConstraintLayout>

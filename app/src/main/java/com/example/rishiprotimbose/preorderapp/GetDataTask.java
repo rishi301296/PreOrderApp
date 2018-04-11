@@ -15,7 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashSet;
 import java.util.Map;
 
-public class GetDataTask extends AsyncTask <Void, Void, HashSet<String> > {
+public class GetDataTask extends AsyncTask<Void, Void, Void> {
 
     private static Context context;
     private static DatabaseReference reference;
@@ -38,12 +38,7 @@ public class GetDataTask extends AsyncTask <Void, Void, HashSet<String> > {
     }
 
     @Override
-    protected void onPostExecute(HashSet<String> strings) {
-        Toast.makeText(context, String.valueOf(res.size()), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected HashSet<String> doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
 
         synchronized (context) {
             reference.child("Dealers").child(bt).child(coord).child(String.valueOf(lat) + " " + String.valueOf(lat + 10)).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -57,7 +52,7 @@ public class GetDataTask extends AsyncTask <Void, Void, HashSet<String> > {
                             res.add(key);
                         }
                     }
-                    Log.d("res1 size", String.valueOf(res.size()));
+                    Log.d("res size", String.valueOf(res.size()));
                 }
 
                 @Override
@@ -66,6 +61,10 @@ public class GetDataTask extends AsyncTask <Void, Void, HashSet<String> > {
                 }
             });
         }
+        return null;
+    }
+
+    public HashSet<String> getRes() {
         return res;
     }
 }

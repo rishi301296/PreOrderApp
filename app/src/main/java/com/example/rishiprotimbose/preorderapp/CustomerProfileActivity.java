@@ -1,6 +1,8 @@
 package com.example.rishiprotimbose.preorderapp;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -10,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class CustomerProfileActivity extends AppCompatActivity {
 
     private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -32,22 +37,29 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1024;
     private boolean mLocationPermissionsGranted = false;
 
-    private static FirebaseAuth firebaseAuth;
-    private static DatabaseReference reference;
-    private static LatLng current_latlng;
-    private static Location current_location;
+    public static FirebaseAuth firebaseAuth;
+    public static DatabaseReference reference;
+    public static LatLng current_latlng;
+    public static Location current_location;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private static Marker marker;
-    private static MarkerOptions options;
+    public static Marker marker;
+    public static MarkerOptions options;
     private static android.support.v4.app.FragmentManager fragmentManager;
-    private static TextView tvname;
-    private static TextView tvphonenumber;
-    private static TextView tvemail;
-    private static Button bviewmap;
-    private static Button bsearch;
-    private static Button bfeedback;
-    private static Button beditprofile;
-    private static Users new_user;
+    public static TextView tvname;
+    public static TextView tvphonenumber;
+    public static TextView tvemail;
+    private static ImageButton bviewmap;
+    private static ImageButton bsearch;
+    private static ImageButton bfeedback;
+    private static ImageButton beditprofile;
+    private static ImageButton bsignout;
+    public static HashMap<String, Users> rusers, gusers;
+    public static HashMap<String, LatLng> ruk_l;
+    public static HashMap<LatLng, String> rul_k;
+    public static Users customer;
+
+    public static String businesstype;
+    public static ArrayList<String> restaurants, grocery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,21 +71,54 @@ public class CustomerProfileActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         fragmentManager = getSupportFragmentManager();
-        new_user = new Users();
-        new_user.setName(getIntent().getExtras().getString("Name"));
-        new_user.setEmail(getIntent().getExtras().getString("Email"));
-        new_user.setPhoneNumber(getIntent().getExtras().getString("PhoneNumber"));
-        new_user.setAuth("Customer");
+        rusers = new HashMap<>();
+        gusers = new HashMap<>();
+        ruk_l = new HashMap<>();
+        rul_k = new HashMap<>();
+        customer = new Users();
+        customer.setName(getIntent().getExtras().getString("Name"));
+        customer.setEmail(getIntent().getExtras().getString("Email"));
+        customer.setPhoneNumber(getIntent().getExtras().getString("PhoneNumber"));
+        customer.setAuth("Customer");
         tvemail = (TextView) findViewById(R.id.tvemail);
         tvname = (TextView) findViewById(R.id.tvname);
         tvphonenumber = (TextView) findViewById(R.id.tvphonenumber);
-        bviewmap = (Button) findViewById(R.id.bviewmap);
-        bsearch = (Button) findViewById(R.id.bsearch);
-        bfeedback = (Button) findViewById(R.id.bfeedback);
-        beditprofile = (Button) findViewById(R.id.beditprofile);
-        tvname.setText(new_user.getName());
-        tvemail.setText(new_user.getEmail());
-        tvphonenumber.setText(new_user.getPhoneNumber());
+        bviewmap = (ImageButton) findViewById(R.id.bviewmap);
+        bsearch = (ImageButton) findViewById(R.id.bsearch);
+        bfeedback = (ImageButton) findViewById(R.id.bfeedback);
+        beditprofile = (ImageButton) findViewById(R.id.beditprofile);
+        bsignout = (ImageButton) findViewById(R.id.bsignout);
+        tvname.setText(customer.getName());
+        tvemail.setText(customer.getEmail());
+        tvphonenumber.setText(customer.getPhoneNumber());
+
+        restaurants = new ArrayList<>();
+        grocery = new ArrayList<>();
+
+        bsignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(CustomerProfileActivity.this);
+                mBuilder.setIcon(android.R.drawable.stat_notify_error);
+                mBuilder.setTitle("SignOut");
+                mBuilder.setMessage("Are you sure!!!");
+                mBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseAuth.signOut();
+                    }
+                });
+                mBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alertDialog = mBuilder.create();
+                alertDialog.show();
+            }
+        });
     }
 
     private void getLocationPermission() {
@@ -173,7 +218,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putDouble("latitude", current_latlng.latitude);
             bundle.putDouble("longitude", current_latlng.longitude);
-            Log.d("key", String.valueOf(current_latlng.latitude));
             fragment = new ViewMapFragment();
             fragment.setArguments(bundle);
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -199,5 +243,4 @@ public class CustomerProfileActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
     }
-
 }
