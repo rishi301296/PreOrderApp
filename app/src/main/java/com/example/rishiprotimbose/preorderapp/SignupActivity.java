@@ -49,39 +49,17 @@ public class SignupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference();
+        init();
 
-        logging = false;
-        progress = (ProgressBar) findViewById(R.id.progressbarsignup);
-        name = (EditText) findViewById(R.id.etname);
-        password = (EditText) findViewById(R.id.etpassword);
-        email = (EditText) findViewById(R.id.etemail);
-        phonenumber = (EditText) findViewById(R.id.etphonenumber);
-        signup = (Button) findViewById(R.id.bsignup);
-        customer = (RadioButton) findViewById(R.id.rbcustomer);
-        dealer = (RadioButton) findViewById(R.id.rbdealer);
-        businesstype = (Spinner) findViewById(R.id.sbusinesstype);
-        getlocation = (CheckBox) findViewById(R.id.cbgetlocation);
-        latitude = "0";
-        longitude = "0";
-
+        customer.setChecked(true);
         customerOn();
-
-        adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.businesstype, android.R.layout.simple_gallery_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
-        businesstype.setAdapter(adapter);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!logging) {
-                    logging = true;
-                //    Toast.makeText(getApplicationContext(), latitude+", "+longitude, Toast.LENGTH_SHORT).show();
-                    register();
-                    logging = false;
-                }
+                signup.setClickable(false);
+                register();
+                signup.setClickable(true);
             }
         });
 
@@ -113,6 +91,29 @@ public class SignupActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void init() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
+
+        progress = (ProgressBar) findViewById(R.id.progressbarsignup);
+        name = (EditText) findViewById(R.id.etname);
+        password = (EditText) findViewById(R.id.etpassword);
+        email = (EditText) findViewById(R.id.etemail);
+        phonenumber = (EditText) findViewById(R.id.etphonenumber);
+        signup = (Button) findViewById(R.id.bsignup);
+        customer = (RadioButton) findViewById(R.id.rbcustomer);
+        dealer = (RadioButton) findViewById(R.id.rbdealer);
+        businesstype = (Spinner) findViewById(R.id.sbusinesstype);
+        getlocation = (CheckBox) findViewById(R.id.cbgetlocation);
+        latitude = "0";
+        longitude = "0";
+
+        adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.businesstype, android.R.layout.simple_gallery_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
+        businesstype.setAdapter(adapter);
     }
 
     @Override

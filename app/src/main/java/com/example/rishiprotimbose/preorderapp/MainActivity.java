@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
     private ProgressBar progress;
     private Button login;
     private TextView signup;
-    private static Boolean logging;
     private DatabaseReference reference;
 
     @Override
@@ -40,25 +39,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference();
-        progress = findViewById(R.id.progressbarlogin);
-
-        logging = false;
-        email = (EditText) findViewById(R.id.etemail);
-        password = (EditText) findViewById(R.id.etpassword);
-        signup = (TextView) findViewById(R.id.tvsignup);
-        login = (Button) findViewById(R.id.blogin);
+        init();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(!logging) {
-                    logging = true;
-                    userLogin();
-                    logging = false;
-                }
+                login.setClickable(false);
+                userLogin();
+                login.setClickable(true);
             }
         });
 
@@ -68,6 +56,17 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, SignupActivity.class));
             }
         });
+    }
+
+    private void init() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference();
+        progress = findViewById(R.id.progressbarlogin);
+
+        email = (EditText) findViewById(R.id.etemail);
+        password = (EditText) findViewById(R.id.etpassword);
+        signup = (TextView) findViewById(R.id.tvsignup);
+        login = (Button) findViewById(R.id.blogin);
     }
 
     private void userLogin() {

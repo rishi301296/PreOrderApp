@@ -3,7 +3,6 @@ package com.example.rishiprotimbose.preorderapp;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class ViewMapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
-    public static final float DEFAULT_ZOOM = 12f;
+    public static final float DEFAULT_ZOOM = 10f, FOCUS_ZOOM = 15f;
     private static LatLng latLng;
     private static GoogleMap mMap;
     private static View mView;
@@ -70,6 +69,12 @@ public class ViewMapFragment extends android.support.v4.app.Fragment implements 
         marker = mMap.addMarker(Poptions.position(latLng).title("You are here"));
 
         addOtherMarkers();
+
+        if(CustomerProfileActivity.businesstype[1] != null) {
+            moveCamera(CustomerProfileActivity.ruk_m.get(CustomerProfileActivity.businesstype[1]).getPosition(), FOCUS_ZOOM);
+        }
+
+        // onClickListener on marker
     }
 
     private void moveCamera(LatLng latlng, float zoom) {
@@ -77,22 +82,21 @@ public class ViewMapFragment extends android.support.v4.app.Fragment implements 
     }
 
     private void addOtherMarkers() {
-        if(CustomerProfileActivity.businesstype != null &&
-                ((CustomerProfileActivity.businesstype.equals("Restaurants")) && (CustomerProfileActivity.restaurants.size() > 0) )) {
-            for(String key : CustomerProfileActivity.rusers.keySet()) {
-                Users new_user = CustomerProfileActivity.rusers.get(key);
-                Log.d("Users", new_user.getName()+new_user.getLatitude());
+        if(CustomerProfileActivity.businesstype[0] != null &&
+                ((CustomerProfileActivity.businesstype[0].equals("Restaurants")) && (CustomerProfileActivity.ruk_u.size() > 0) )) {
+            for(String key : CustomerProfileActivity.ruk_u.keySet()) {
+                Users new_user = CustomerProfileActivity.ruk_u.get(key);
                 LatLng la = new LatLng(Double.valueOf(new_user.getLatitude()), Double.valueOf(new_user.getLongitude()));
-                mMap.addMarker(Roptions.
+                final Marker m = mMap.addMarker(Roptions.
                         position(la).
                         title(new_user.getName()));
 
-                CustomerProfileActivity.rul_k.put(la, key);
-                CustomerProfileActivity.ruk_l.put(key, la);
+                CustomerProfileActivity.rum_k.put(m, key);
+                CustomerProfileActivity.ruk_m.put(key, m);
             }
         }
-        if(CustomerProfileActivity.businesstype != null &&
-            ((CustomerProfileActivity.businesstype.equals("Grocery Store")) && (CustomerProfileActivity.grocery.size() > 0) )) {
+        if(CustomerProfileActivity.businesstype[0] != null &&
+            ((CustomerProfileActivity.businesstype[0].equals("Grocery Store")) && (CustomerProfileActivity.grocery.size() > 0) )) {
             Toast.makeText(mView.getContext(), "App in progress!!!", Toast.LENGTH_SHORT).show();
         }
     }

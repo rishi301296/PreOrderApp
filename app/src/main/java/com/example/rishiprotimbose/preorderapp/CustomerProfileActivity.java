@@ -1,8 +1,6 @@
 package com.example.rishiprotimbose.preorderapp;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -29,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CustomerProfileActivity extends AppCompatActivity {
 
@@ -52,14 +51,14 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private static ImageButton bsearch;
     private static ImageButton bfeedback;
     private static ImageButton beditprofile;
-    private static ImageButton bsignout;
-    public static HashMap<String, Users> rusers, gusers;
-    public static HashMap<String, LatLng> ruk_l;
-    public static HashMap<LatLng, String> rul_k;
+    public static HashMap<String, Users> ruk_u;
+    public static HashMap<Users, String> ruu_k;
+    public static HashMap<String, Marker> ruk_m;
+    public static HashMap<Marker, String> rum_k;
     public static Users customer;
 
-    public static String businesstype;
-    public static ArrayList<String> restaurants, grocery;
+    public static String[] businesstype = {null, null};
+    public static List<Users> restaurants, grocery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,57 +67,39 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         getLocationPermission();
 
+        init();
+
+        addListener();
+    }
+
+    private void init() {
         reference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         fragmentManager = getSupportFragmentManager();
-        rusers = new HashMap<>();
-        gusers = new HashMap<>();
-        ruk_l = new HashMap<>();
-        rul_k = new HashMap<>();
+        ruk_u = new HashMap<>();
+        ruu_k = new HashMap<>();
+        ruk_m = new HashMap<>();
+        rum_k = new HashMap<>();
+
         customer = new Users();
         customer.setName(getIntent().getExtras().getString("Name"));
         customer.setEmail(getIntent().getExtras().getString("Email"));
         customer.setPhoneNumber(getIntent().getExtras().getString("PhoneNumber"));
         customer.setAuth("Customer");
+
         tvemail = (TextView) findViewById(R.id.tvemail);
         tvname = (TextView) findViewById(R.id.tvname);
         tvphonenumber = (TextView) findViewById(R.id.tvphonenumber);
-        bviewmap = (ImageButton) findViewById(R.id.bviewmap);
+        bviewmap = (ImageButton) findViewById(R.id.bbook);
         bsearch = (ImageButton) findViewById(R.id.bsearch);
         bfeedback = (ImageButton) findViewById(R.id.bfeedback);
         beditprofile = (ImageButton) findViewById(R.id.beditprofile);
-        bsignout = (ImageButton) findViewById(R.id.bsignout);
         tvname.setText(customer.getName());
         tvemail.setText(customer.getEmail());
         tvphonenumber.setText(customer.getPhoneNumber());
 
         restaurants = new ArrayList<>();
         grocery = new ArrayList<>();
-
-        bsignout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(CustomerProfileActivity.this);
-                mBuilder.setIcon(android.R.drawable.stat_notify_error);
-                mBuilder.setTitle("SignOut");
-                mBuilder.setMessage("Are you sure!!!");
-                mBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        firebaseAuth.signOut();
-                    }
-                });
-                mBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog alertDialog = mBuilder.create();
-                alertDialog.show();
-            }
-        });
     }
 
     private void getLocationPermission() {
@@ -214,7 +195,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     public void changeFragment(View view) {
         android.support.v4.app.Fragment fragment;
 
-        if(view == findViewById(R.id.bviewmap)) {
+        if(view == findViewById(R.id.bbook)) {
             Bundle bundle = new Bundle();
             bundle.putDouble("latitude", current_latlng.latitude);
             bundle.putDouble("longitude", current_latlng.longitude);

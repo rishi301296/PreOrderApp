@@ -3,15 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
-    android:layout_marginTop="250dp"
-    android:background="#affd64af"
+    android:layout_height="match_parent"
+    android:background="#677766aa"
     tools:context=".SearchFragment">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <Spinner
         android:id="@+id/ssearch"
+        style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginBottom="8dp"
@@ -20,7 +18,12 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:drawSelectorOnTop="true"
+        android:dropDownWidth="60dp"
+        android:minWidth="600dp"
         android:prompt="@string/select_business_type"
+        android:spinnerMode="dialog"
+        android:textAlignment="gravity"
         android:background="@drawable/shape_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,27 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tvsearch"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text=":: Search Result ::"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ssearch"
-        app:layout_constraintVertical_bias="0.101" />
 
     <Button
         android:id="@+id/bsearch2"
@@ -66,24 +48,146 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ssearch"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.119" />
 
-    <ListView
-        android:id="@+id/lvsearch"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutlistview"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="350dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ssearch"
+        app:layout_constraintVertical_bias="0.488">
+
+        <TextView
+            android:id="@+id/tvsearch"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text=":: Search Result ::"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bbook"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.064" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lvsearch"
+            android:layout_width="260dp"
+            android:layout_height="280dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:background="@drawable/shape_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvsearch"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/bbook"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="#88aaddcc"
+            android:text="Book"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/lvsearch"
+            app:layout_constraintTop_toBottomOf="@+id/tvsearch"
+            app:layout_constraintVertical_bias="0.127" />
+
+        <Button
+            android:id="@+id/bsort"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="#88aaddcc"
+            android:text="Sort"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/lvsearch"
+            app:layout_constraintTop_toBottomOf="@+id/bbook"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/bfeedback"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="#88aaddcc"
+            android:text="Feedback"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/lvsearch"
+            app:layout_constraintTop_toBottomOf="@+id/bsort"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/psearch"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="152dp"
+        android:progressDrawable="@color/colorOrange"
         android:visibility="invisible"
-        android:background="@drawable/shape_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.302"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/ssearch"
+        app:layout_constraintVertical_bias="0.35" />
 
 </android.support.constraint.ConstraintLayout>

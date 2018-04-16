@@ -28,13 +28,13 @@ public class Users {
     }
 
     public Users(String auth, String name, String email, String phoneNumber, String businessType, String latitude, String longitude) {
-        Auth = auth;
-        Name = name;
-        Email = email;
-        PhoneNumber = phoneNumber;
-        BusinessType = businessType;
-        Latitude = latitude;
-        Longitude = longitude;
+        this.setAuth(auth);
+        this.setName(name);
+        this.setEmail(email);
+        this.setPhoneNumber(phoneNumber);
+        this.setBusinessType(businessType);
+        this.setLatitude(latitude);
+        this.setLongitude(longitude);
     }
 
     public String getAuth() {
