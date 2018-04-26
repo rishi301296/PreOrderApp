@@ -10,15 +10,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.rishiprotimbose.preorderapp.Common.Common;
-import com.example.rishiprotimbose.preorderapp.CustomerProfileActivity;
+import com.example.rishiprotimbose.preorderapp.CustomerProfile.CustomerProfileActivity;
 import com.example.rishiprotimbose.preorderapp.Interface.ItemClickListener;
 import com.example.rishiprotimbose.preorderapp.R;
 import com.example.rishiprotimbose.preorderapp.Users;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -53,13 +50,15 @@ class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickLi
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
-    List<String> items;
-    Context context;
+    private List<Users> items;
+    private Context context;
+    private float rate;
+    private CustomViewHolder holder;
 
     int row_index = -1;
 
-    public CustomAdapter(Set<String> items, Context context) {
-        this.items = new ArrayList<String>(items);
+    public CustomAdapter(List<Users> items, Context context) {
+        this.items = items;
         this.context = context;
     }
 
@@ -71,30 +70,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
-        Users new_user = CustomerProfileActivity.ruk_u.get(items.get(position));
+    public void onBindViewHolder(CustomViewHolder h, int position) {
+        holder = h;
+        Users new_user = items.get(position);
         //    holder.img.setImageDrawable();
         holder.tvName.setText(new_user.getName());
         holder.tvPhoneNumber.setText(new_user.getPhoneNumber());
         holder.tvEmail.setText(new_user.getEmail());
-        holder.rating.setRating(2);
+        holder.rating.setRating(new_user.getStars());
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position) {
                 row_index = position;
-                Common.currentItem = items.get(position);
                 CustomerProfileActivity.businesstype[0] = "Restaurants";
-                CustomerProfileActivity.businesstype[1] = items.get(position);
+                CustomerProfileActivity.businesstype[1] = CustomerProfileActivity.ruu_k.get(items.get(position));
                 notifyDataSetChanged();
             }
         });
+
         if(row_index == position) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#AAA8A8AA"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#88A8A8AA"));
 //            holder.itemView.setTextColor(Color.parseColor("#C5C5C7"));
         }
         else {
-            holder.itemView.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#00000000"));
 //            holder.itemView.setTextColor(Color.parseColor("#000000"));
         }
     }

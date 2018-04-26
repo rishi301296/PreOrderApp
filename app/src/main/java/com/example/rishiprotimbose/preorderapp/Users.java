@@ -5,26 +5,26 @@ package com.example.rishiprotimbose.preorderapp;
  */
 
 public class Users {
-    public String Auth;
-    public String Name;
-    public String Email;
-    public String PhoneNumber;
-    public String BusinessType;
-    public String Latitude;
-    public String Longitude;
+    public String auth;
+    public String name;
+    public String email;
+    public String phoneNumber;
+    public String businessType;
+    public String latitude;
+    public String longitude;
+    public int stars;
 
-    public Users() {
-
-    }
+    public Users() {}
 
     public Users(String auth, String name, String email, String phoneNumber) {
-        Auth = auth;
-        Name = name;
-        Email = email;
-        PhoneNumber = phoneNumber;
-        BusinessType = "NA";
-        Latitude = "0";
-        Longitude = "0";
+        this.setAuth(auth);
+        this.setName(name);
+        this.setEmail(email);
+        this.setPhoneNumber(phoneNumber);
+        this.setBusinessType("Na");
+        this.setLatitude("0");
+        this.setLongitude("0");
+        stars = 0;
     }
 
     public Users(String auth, String name, String email, String phoneNumber, String businessType, String latitude, String longitude) {
@@ -35,61 +35,54 @@ public class Users {
         this.setBusinessType(businessType);
         this.setLatitude(latitude);
         this.setLongitude(longitude);
+        stars = 0;
     }
 
-    public String getAuth() {
-        return Auth;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public String getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public String getBusinessType() {
-        return BusinessType;
-    }
-
-    public String getLatitude() {
-        return Latitude;
-    }
-
-    public String getLongitude() {
-        return Longitude;
-    }
+    public String getAuth() { return auth; }
 
     public void setAuth(String auth) {
-        Auth = auth;
+        this.auth = auth;
     }
+
+    public String getName() { return name; }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
+
+    public String getEmail() { return email; }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
+
+    public String getPhoneNumber() { return phoneNumber; }
 
     public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
+
+    public String getBusinessType() { return businessType; }
 
     public void setBusinessType(String businessType) {
-        BusinessType = businessType;
+        this.businessType = businessType;
     }
+
+    public String getLatitude() { return latitude; }
 
     public void setLatitude(String latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
+    public String getLongitude() { return longitude; }
+
     public void setLongitude(String longitude) {
-        Longitude = longitude;
+        this.longitude = longitude;
+    }
+
+    public int getStars() { return stars; }
+
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 }

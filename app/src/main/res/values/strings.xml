@@ -34,4 +34,17 @@
     <string name="feedback">Feedback</string>
     <string name="search">Search</string>
     <string name="view_map">View Map</string>
+    <string name="booking">Booking</string>
+    <string name="order">Order</string>
+    <string name="sort">sort</string>
+    <string name="continental">Continental</string>
+    <string name="south_indian">South Indian</string>
+    <string name="chinese">Chinese</string>
+    <string name="pizza">Pizza</string>
+    <string name="burger">Burger</string>
+    <string name="unregistered_marker">unregistered marker</string>
+    <string name="registered_marker">registered marker</string>
+    <string name="registered_dealers">Registered Dealers</string>
+    <string name="unregistered_dealers">Unregistered Dealers</string>
+    <string name="current_location">current location</string>
 </resources>

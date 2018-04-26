@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context="com.example.rishiprotimbose.preorderapp.SignupActivity">
+    tools:context="com.example.rishiprotimbose.preorderapp.Login.SignupActivity">
 
     <TextView
         android:id="@+id/textView2"
@@ -209,7 +209,6 @@
         android:minWidth="600dp"
         android:spinnerMode="dialog"
         android:textAlignment="gravity"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -234,7 +233,6 @@
         android:textColor="#ddffffff"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

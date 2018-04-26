@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@android:style/Theme.Black.NoTitleBar"
-    tools:context="com.example.rishiprotimbose.preorderapp.DealerGetLocationActivity">
+    tools:context="com.example.rishiprotimbose.preorderapp.Login.DealerGetLocationActivity">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -21,61 +21,118 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         map:layout_constraintVertical_bias="0.0"
-        tools:context="com.example.rishiprotimbose.preorderapp.DealerGetLocationActivity"
+        tools:context="com.example.rishiprotimbose.preorderapp.Login.DealerGetLocationActivity"
         tools:layout="@layout/activity_dealer_get_location" />
 
-    <android.support.constraint.ConstraintLayout
+    <EditText
+        android:id="@+id/etsearch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_layout"
+        android:drawableLeft="@drawable/ic_action_search"
+        android:drawableStart="@drawable/ic_action_search"
+        android:ems="10"
+        android:hint="@string/enter_address_city_or_zip_code"
+        android:inputType="textPersonName"
+        android:textSize="16sp"
+        android:textColor="#ffffffff"
+        android:layout_alignParentTop="true"
+        android:imeOptions="actionSearch"/>
 
-        <EditText
-            android:id="@+id/etsearch"
-            android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/ibcur"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:contentDescription="@string/current_location"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_action_cur_loc"
+        android:layout_below="@+id/etsearch"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <ImageButton
+        android:id="@+id/ibsearch"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/search"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/go_2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
+    <RelativeLayout
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="42dp">
+
+        <ImageView
+            android:id="@+id/regm"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/registered_marker"
+            android:src="@drawable/restaurant_marker" />
+
+        <TextView
+            android:id="@+id/reg"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shape_layout"
-            android:drawableLeft="@drawable/ic_action_search"
-            android:drawableStart="@drawable/ic_action_search"
-            android:ems="10"
-            android:hint="@string/enter_address_city_or_zip_code"
-            android:inputType="textPersonName"
-            android:textSize="16sp"
-            android:textColor="#ffffffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.01"
-            android:imeOptions="actionSearch"/>
+            android:layout_alignLeft="@+id/unreg"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/unreg"
+            android:text="@string/registered_dealers"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="italic" />
 
-        <ImageButton
-            android:id="@+id/ibcur"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/ic_action_cur_loc"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.94" />
+        <ImageView
+            android:id="@+id/unregm"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/unregistered_marker"
+            android:src="@drawable/ic_action_restaurants" />
 
-        <ImageButton
-            android:id="@+id/ibsearch"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/button_states"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.925"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.971" />
+        <TextView
+            android:id="@+id/unreg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:text="@string/unregistered_dealers"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="italic" />
 
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
