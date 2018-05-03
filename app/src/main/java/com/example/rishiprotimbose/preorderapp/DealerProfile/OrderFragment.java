@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -29,8 +30,9 @@ public class OrderFragment extends Fragment {
     private static List<Orders> ordersList;
     private static List<String> customerKeys;
     private static ArrayAdapter<String> customerAdapter;
-    private static ArrayAdapter<Orders> ordersAdapter;
+    private static ArrayAdapter<String> ordersAdapter;
     private static int currentCustomer;
+    private static List<String> currentOrder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,13 +47,15 @@ public class OrderFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         currentCustomer = -1;
+        currentOrder = new ArrayList<>();
         lvcustomers = (ListView) view.findViewById(R.id.lvcustomers);
         lvorders = (ListView) view.findViewById(R.id.lvorders);
         customersList = new ArrayList<>();
         ordersList = new ArrayList<>();
-        ordersAdapter = new ArrayAdapter<Orders>(view.getContext(), android.R.layout.simple_expandable_list_item_1, ordersList);
-        customerAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_expandable_list_item_1, customersList);
+        ordersAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_expandable_list_item_1, currentOrder);
+        customerAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_expandable_list_item_1, customersList);
         lvcustomers.setAdapter(customerAdapter);
+        lvorders.setAdapter(ordersAdapter);
 
         error = (ConstraintLayout) view.findViewById(R.id.error);
         normal = (ConstraintLayout) view.findViewById(R.id.normal);
@@ -87,11 +91,15 @@ public class OrderFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-//        lvcustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//        });
+        lvcustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                currentOrder = new ArrayList<>();
+                for(int j=0; j<ordersList.get(i).getFoodType().size(); j++) {
+                    currentOrder.add(ordersList.get(i).foodType.get(j) + " : " + ordersList.get(i).foodQty.get(j));
+                    ordersAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 }

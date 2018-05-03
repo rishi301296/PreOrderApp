@@ -11,8 +11,11 @@ import com.example.rishiprotimbose.preorderapp.CustomerProfile.BookFragment;
 import com.example.rishiprotimbose.preorderapp.R;
 import com.example.rishiprotimbose.preorderapp.Users;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DealerProfileActivity extends AppCompatActivity {
 
@@ -71,6 +74,18 @@ public class DealerProfileActivity extends AppCompatActivity {
         tvname.setText(dealer.getName());
         tvemail.setText(dealer.getEmail());
         tvphonenumber.setText(dealer.getPhoneNumber());
+
+        reference.child("OrderTypes").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(dealer_key)) {
+                    ordertypesdone = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     private void addListener() {

@@ -22,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rishiprotimbose.preorderapp.Locations.GetNearbyPlacesData;
 import com.example.rishiprotimbose.preorderapp.R;
 import com.example.rishiprotimbose.preorderapp.Users;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -64,7 +63,7 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ImageButton ibgo, ibcur;
     private EditText etsearch;
-    private static Marker marker;
+    public static Marker marker;
     private static MarkerOptions options;
     private static String BusinessType;
 
@@ -283,7 +282,6 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
     }
 
     private void moveCamera(LatLng latlng, float zoom, String title) {
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, zoom));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latlng.latitude, latlng.longitude), zoom));
         if(marker != null) {
             mMap.clear();
@@ -295,38 +293,14 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
     }
 
     private void getRegAndNonRegRestaurants() {
-        Object data[] = new Object[2];
+        Object data[] = new Object[3];
         data[0]=current_latlng;
         data[1]=mMap;
+        data[2]=getResources().getString(R.string.google_places_key);
 
         TaskGetRegisteredRestaurants getRegisteredRestaurants = new TaskGetRegisteredRestaurants();
         getRegisteredRestaurants.execute(data);
-
-        String restaurant = "restaurant";
-        String url = getUrl(marker.getPosition().latitude, marker.getPosition().longitude, restaurant);
-        Object dataTransfer[] = new Object[2];
-        dataTransfer[0] = mMap;
-        dataTransfer[1] = url;
-
-        GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-        getNearbyPlacesData.execute(dataTransfer);
     }
-
-    private String getUrl(double latitude, double longitude, String nearByPlace) {
-        StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlaceUrl.append("location="+latitude+","+longitude);
-        googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
-        googlePlaceUrl.append("&type="+nearByPlace);
-        googlePlaceUrl.append("&keyword=cruise");
-        googlePlaceUrl.append("&key="+getResources().getString(R.string.google_places_key));
-
-        return googlePlaceUrl.toString();
-    }
-
-//    private void searchRestaurants() {
-//
-//    }
-
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, DealerGetLocationActivity.class);

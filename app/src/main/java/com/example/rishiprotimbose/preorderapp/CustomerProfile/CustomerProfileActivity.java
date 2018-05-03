@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -84,17 +83,18 @@ public class CustomerProfileActivity extends AppCompatActivity {
         ruk_m = new HashMap<>();
         rum_k = new HashMap<>();
 
-        customer = new Users();
-        customer.setName(getIntent().getExtras().getString("Name"));
-        customer.setEmail(getIntent().getExtras().getString("Email"));
-        customer.setPhoneNumber(getIntent().getExtras().getString("PhoneNumber"));
-        customer.setAuth("Customer");
+        customer = new Users(
+                "Customer",
+                getIntent().getExtras().getString("Name"),
+                getIntent().getExtras().getString("Email"),
+                getIntent().getExtras().getString("PhoneNumber")
+                );
         customer_key = getIntent().getExtras().getString("Key");
 
         tvemail = (TextView) findViewById(R.id.tvemail);
         tvname = (TextView) findViewById(R.id.tvname);
         tvphonenumber = (TextView) findViewById(R.id.tvphonenumber);
-        bviewmap = (ImageButton) findViewById(R.id.bbook);
+        bviewmap = (ImageButton) findViewById(R.id.bviewmap);
         bsearch = (ImageButton) findViewById(R.id.bsearch);
         bfeedback = (ImageButton) findViewById(R.id.bfeedback);
         beditprofile = (ImageButton) findViewById(R.id.beditprofile);
@@ -104,6 +104,66 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         restaurants = new ArrayList<>();
         grocery = new ArrayList<>();
+    }
+
+    private void addListener() {
+        bviewmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(v);
+            }
+        });
+        bfeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(v);
+            }
+        });
+        bsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(v);
+            }
+        });
+        beditprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(v);
+            }
+        });
+    }
+
+    public void changeFragment(View view) {
+        android.support.v4.app.Fragment fragment;
+
+        if(view == findViewById(R.id.bviewmap)) {
+            Bundle bundle = new Bundle();
+            bundle.putDouble("latitude", current_latlng.latitude);
+            bundle.putDouble("longitude", current_latlng.longitude);
+            fragment = new ViewMapFragment();
+            fragment.setArguments(bundle);
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.mainfragment, fragment);
+            fragmentTransaction.commit();
+        }
+        if(view == findViewById(R.id.bsearch)) {
+            fragment = new SearchFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.mainfragment, fragment);
+            fragmentTransaction.commit();
+        }
+        if(view == findViewById(R.id.bfeedback)) {
+            fragment = new FeedbackFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.mainfragment, fragment);
+            fragmentTransaction.commit();
+        }
+        if(view == findViewById(R.id.beditprofile)) {
+            fragment = new EditProfileFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.mainfragment, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     private void getLocationPermission() {
@@ -152,9 +212,10 @@ public class CustomerProfileActivity extends AppCompatActivity {
                                 current_location = (Location) task.getResult();
                                 current_latlng = new LatLng(current_location.getLatitude(), current_location.getLongitude());
 
-                                addListener();
+                                changeFragment(findViewById(R.id.bviewmap));
 
-                                Log.d("LatLng", current_location.getLatitude() + ", " + current_location.getLongitude());
+//                                addListener();
+
                             } else {
                                 Toast.makeText(getApplicationContext(), "Unable To Find Location!", Toast.LENGTH_SHORT).show();
                             }
@@ -166,66 +227,6 @@ public class CustomerProfileActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    private void addListener() {
-        bviewmap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeFragment(v);
-            }
-        });
-        bfeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeFragment(v);
-            }
-        });
-        bsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeFragment(v);
-            }
-        });
-        beditprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeFragment(v);
-            }
-        });
-    }
-
-    public void changeFragment(View view) {
-        android.support.v4.app.Fragment fragment;
-
-        if(view == findViewById(R.id.bbook)) {
-            Bundle bundle = new Bundle();
-            bundle.putDouble("latitude", current_latlng.latitude);
-            bundle.putDouble("longitude", current_latlng.longitude);
-            fragment = new ViewMapFragment();
-            fragment.setArguments(bundle);
-            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainfragment, fragment);
-            fragmentTransaction.commit();
-        }
-        if(view == findViewById(R.id.bsearch)) {
-            fragment = new SearchFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainfragment, fragment);
-            fragmentTransaction.commit();
-        }
-        if(view == findViewById(R.id.bfeedback)) {
-            fragment = new FeedbackFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainfragment, fragment);
-            fragmentTransaction.commit();
-        }
-        if(view == findViewById(R.id.beditprofile)) {
-            fragment = new EditProfileFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainfragment, fragment);
-            fragmentTransaction.commit();
         }
     }
 }

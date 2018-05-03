@@ -56,7 +56,7 @@ public class FeedbackFragment extends Fragment {
         bsubmit = (Button) mView.findViewById(R.id.bsubmit);
         stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(0).setColorFilter(Color.parseColor("#88ff3300"), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(1).setColorFilter(getResources().getColor(R.color.colorOrange), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override

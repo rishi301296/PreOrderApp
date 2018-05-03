@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/search_bgd"
+    android:background="@drawable/food_categories_bgd"
     tools:context=".CustomerProfile.SearchFragment">
 
     <Spinner
@@ -17,40 +18,32 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
+        android:layout_alignParentTop="true"
         android:background="@drawable/shape_layout"
         android:drawSelectorOnTop="true"
         android:dropDownWidth="60dp"
         android:minWidth="600dp"
         android:prompt="@string/select_business_type"
         android:spinnerMode="dialog"
-        android:textAlignment="gravity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027" />
+        android:textAlignment="gravity" />
 
     <Button
         android:id="@+id/bsearch2"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="70dp"
         android:text="@string/search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ssearch"
-        app:layout_constraintVertical_bias="0.027" />
+        android:background="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ssearch"/>
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/layoutlistview"
         android:layout_width="match_parent"
         android:layout_height="360dp"
@@ -58,14 +51,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ssearch"
-        app:layout_constraintVertical_bias="0.527">
+        android:layout_below="@+id/ssearch">
 
         <ProgressBar
             android:id="@+id/psearch"
@@ -80,12 +68,8 @@
             android:layout_marginTop="8dp"
             android:progressDrawable="@color/colorOrange"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/lvsearch"
-            app:layout_constraintHorizontal_bias="0.529"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/lvsearch"
-            app:layout_constraintVertical_bias="0.466" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
 
         <TextView
             android:id="@+id/tvsearch"
@@ -101,12 +85,7 @@
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/bbook"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iborder"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_alignParentTop="true"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/lvsearch"
@@ -122,93 +101,66 @@
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvsearch"
-            app:layout_constraintVertical_bias="0.0">
+            android:layout_below="@+id/tvsearch">
 
         </android.support.v7.widget.RecyclerView>
 
-        <ImageButton
-            android:id="@+id/ibbook"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/button_booking"
-            android:contentDescription="@string/booking"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.103"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark">
 
-        <ImageButton
-            android:id="@+id/iborder"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/button_order"
-            android:contentDescription="@string/order"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.141"
-            app:layout_constraintStart_toEndOf="@+id/ibbook"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <ImageButton
+                android:id="@+id/iborder"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="38dp"
+                android:layout_marginStart="38dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/button_order"
+                android:contentDescription="@string/order" />
 
-        <ImageButton
-            android:id="@+id/ibsort"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/button_sort"
-            android:contentDescription="@string/sort"
-            android:src="@drawable/ic_action_sort"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.225"
-            app:layout_constraintStart_toEndOf="@+id/iborder"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <ImageButton
+                android:id="@+id/ibbook"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_toEndOf="@+id/iborder"
+                android:layout_toRightOf="@+id/iborder"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/button_booking"
+                android:contentDescription="@string/booking" />
 
-        <ImageButton
-            android:id="@+id/ibinfo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/button_sort"
-            android:contentDescription="info"
-            android:src="@drawable/ic_action_info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
-            app:layout_constraintStart_toEndOf="@+id/ibsort"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <ImageButton
+                android:id="@+id/ibsort"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/ibbook"
+                android:layout_toRightOf="@+id/ibbook"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/button_sort"
+                android:contentDescription="@string/sort"
+                android:src="@drawable/ic_action_sort" />
 
-    </android.support.constraint.ConstraintLayout>
+            <ImageButton
+                android:id="@+id/ibinfo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/ibsort"
+                android:layout_toRightOf="@+id/ibsort"
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/button_sort"
+                android:contentDescription="info"
+                android:src="@drawable/ic_action_info" />
 
-</android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

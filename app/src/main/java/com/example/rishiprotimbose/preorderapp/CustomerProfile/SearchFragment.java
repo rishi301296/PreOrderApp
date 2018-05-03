@@ -2,7 +2,6 @@ package com.example.rishiprotimbose.preorderapp.CustomerProfile;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +43,7 @@ public class SearchFragment extends Fragment {
     private static ProgressBar progress;
     private static TextView tv;
     private static ListView listView;
-    private static ConstraintLayout layoutlistview;
+    private static RelativeLayout layoutlistview;
     private static LatLng latLng;
     private static ArrayAdapter adapter;
     private static RecyclerView recyclerView;
@@ -53,7 +53,6 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_search, container, false);
-        init();
 
         return mView;
     }
@@ -69,7 +68,7 @@ public class SearchFragment extends Fragment {
         tv = (TextView) mView.findViewById(R.id.tvsearch);
         progress = (ProgressBar) mView.findViewById(R.id.psearch);
         recyclerView = (RecyclerView) mView.findViewById(R.id.lvsearch);
-        layoutlistview = (ConstraintLayout) mView.findViewById(R.id.layoutlistview);
+        layoutlistview = (RelativeLayout) mView.findViewById(R.id.layoutlistview);
         reference = CustomerProfileActivity.reference;
         latLng = CustomerProfileActivity.current_latlng;
 
@@ -92,6 +91,8 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        init();
+
         if(CustomerProfileActivity.businesstype[0] != null &&
                 ((CustomerProfileActivity.businesstype[0].equals("Restaurants") && CustomerProfileActivity.ruk_u.size() > 0) ||
                 (CustomerProfileActivity.businesstype[0].equals("Grocery Store") && CustomerProfileActivity.grocery.size() > 0))) {
@@ -106,7 +107,7 @@ public class SearchFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0) {
                     CustomerProfileActivity.businesstype[0] = "Restaurants";
-                    if(CustomerProfileActivity.restaurants.size() == 0) {                                 /////
+                    if(CustomerProfileActivity.restaurants.size() == 0) {
                         listViewOff();
                     }
                     else {
@@ -228,7 +229,7 @@ public class SearchFragment extends Fragment {
             reference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot result) {
-                    final Users newr = result.child(key).getValue(Users.class);
+                    final Users newr = (Users) result.child(key).getValue(Users.class);
                     CustomerProfileActivity.reference.child("Feedback")
                             .child(key)
                             .addListenerForSingleValueEvent(new ValueEventListener() {

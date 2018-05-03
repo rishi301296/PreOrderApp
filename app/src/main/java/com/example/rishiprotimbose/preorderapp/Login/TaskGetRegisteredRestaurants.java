@@ -2,6 +2,7 @@ package com.example.rishiprotimbose.preorderapp.Login;
 
 import android.os.AsyncTask;
 
+import com.example.rishiprotimbose.preorderapp.Locations.GetNearbyPlacesData;
 import com.example.rishiprotimbose.preorderapp.R;
 import com.example.rishiprotimbose.preorderapp.Users;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,11 +18,13 @@ import java.util.ArrayList;
 public class TaskGetRegisteredRestaurants extends AsyncTask<Object, String, LatLng> {
     LatLng latLng;
     GoogleMap mMap;
+    String key;
 
     @Override
     protected LatLng doInBackground(Object... objects) {
         latLng = (LatLng) objects[0];
         mMap = (GoogleMap) objects[1];
+        key = (String) objects[2];
 
         return latLng;
     }
@@ -72,9 +75,7 @@ public class TaskGetRegisteredRestaurants extends AsyncTask<Object, String, LatL
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
+                public void onCancelled(DatabaseError databaseError) {}
             });
         }
     }
@@ -87,16 +88,36 @@ public class TaskGetRegisteredRestaurants extends AsyncTask<Object, String, LatL
                     Users newr = new Users();
                     newr = result.child(key).getValue(Users.class);
                     LatLng latLng = new LatLng(Double.valueOf(newr.getLatitude()), Double.valueOf(newr.getLongitude()));
+                    DealerGetLocationActivity.registeredRestaurants.put(String.valueOf(latLng.latitude)+String.valueOf(latLng.longitude), newr);
                     mMap.addMarker(new MarkerOptions()
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant_marker))
                             .position(latLng)
                             .title(newr.getName()));
-                    DealerGetLocationActivity.registeredRestaurants.put(String.valueOf(latLng.latitude)+String.valueOf(latLng.longitude), newr);
+
+                    String restaurant = "restaurant";
+                    String url = getUrl(DealerGetLocationActivity.marker.getPosition().latitude, DealerGetLocationActivity.marker.getPosition().longitude, restaurant);
+                    Object dataTransfer[] = new Object[2];
+                    dataTransfer[0] = mMap;
+                    dataTransfer[1] = url;
+
+                    GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+                    getNearbyPlacesData.execute(dataTransfer);
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {}
             });
         }
+    }
+
+    private String getUrl(double latitude, double longitude, String nearByPlace) {
+        StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googlePlaceUrl.append("location="+latitude+","+longitude);
+        googlePlaceUrl.append("&radius="+12000);
+        googlePlaceUrl.append("&type="+nearByPlace);
+        googlePlaceUrl.append("&keyword=cruise");
+        googlePlaceUrl.append("&key="+key);
+
+        return googlePlaceUrl.toString();
     }
 }

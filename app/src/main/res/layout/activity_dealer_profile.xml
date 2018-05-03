@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1cae7ff"
+    android:background="#514610c6"
     tools:context=".DealerProfile.DealerProfileActivity">
 
     <ImageView
@@ -13,12 +14,7 @@
         android:layout_height="160dp"
         android:background="@drawable/topborder"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        android:layout_alignParentTop="true"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -38,12 +34,20 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:fontFamily="serif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageButton
+        android:id="@+id/beditprofile"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit"
+        android:contentDescription="@string/edit_profile" />
 
     <ImageView
         android:id="@+id/ivprofilepic"
@@ -56,241 +60,164 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/profile_pic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.018" />
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/ivprofilepic"
+        android:layout_toRightOf="@+id/ivprofilepic"
+        android:layout_below="@+id/textView"
         android:text="@string/name2"
         android:textAllCaps="false"
         android:textSize="12sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivprofilepic"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/tvname"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_below="@+id/textView"
         android:text="@string/example"
         android:textColor="#ffffffff"
         android:textSize="14sp"
-        app:fontFamily="sans-serif-condensed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.006" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/email2"
-        android:textSize="12sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivprofilepic"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.001" />
-
-    <TextView
-        android:id="@+id/tvemail"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="6dp"
-        android:text="@string/example_mail_com"
-        android:textColor="#ffffffff"
-        android:textSize="14sp"
-        app:fontFamily="sans-serif-condensed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/tvphonenumber"
-        app:layout_constraintVertical_bias="0.0" />
+        app:fontFamily="sans-serif-condensed" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/ivprofilepic"
+        android:layout_toRightOf="@+id/ivprofilepic"
+        android:layout_marginTop="6dp"
+        android:layout_below="@+id/textView5"
         android:text="@string/phonenumber"
         android:textSize="12sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ivprofilepic"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.003" />
+        android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/tvphonenumber"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/textView6"
+        android:layout_toRightOf="@+id/textView6"
+        android:layout_below="@+id/tvname"
         android:text="@string/_9876543210"
         android:textColor="#ffffffff"
         android:textSize="12sp"
-        app:fontFamily="sans-serif-condensed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/tvname"
-        app:layout_constraintVertical_bias="0.0" />
+        app:fontFamily="sans-serif-condensed" />
 
-    <ImageButton
-        android:id="@+id/bfoodcategory"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/food_categories"
-        android:contentDescription="@string/booking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bbook"
-        app:layout_constraintHorizontal_bias="0.408"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivprofilepic"
+        android:layout_toRightOf="@+id/ivprofilepic"
+        android:layout_marginTop="6dp"
+        android:layout_below="@+id/textView6"
+        android:text="@string/email2"
+        android:textSize="12sp"
+        android:textStyle="bold|italic" />
 
-    <ImageButton
-        android:id="@+id/bbook"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/booking"
-        android:contentDescription="@string/booking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/border"
-        app:layout_constraintHorizontal_bias="0.751"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/tvemail"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/textView8"
+        android:layout_toRightOf="@+id/textView8"
+        android:layout_below="@+id/tvphonenumber"
+        android:text="@string/example_mail_com"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        app:fontFamily="sans-serif-condensed" />
 
-    <ImageButton
-        android:id="@+id/border"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/order"
-        android:contentDescription="@string/search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bfeedback"
-        app:layout_constraintHorizontal_bias="0.846"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/bfeedback"
-        android:layout_width="45dp"
-        android:layout_height="40dp"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/feedback"
-        android:contentDescription="@string/feedback"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.908"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/beditprofile"
-        android:layout_width="25dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edit"
-        android:contentDescription="@string/edit_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.948"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012" />
-
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/mainfragment"
         android:name="com.example.rishiprotimbose.preorderapp.ViewMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="410dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bsearch"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView4"
+        android:layout_above="@+id/grid"/>
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:padding="4dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_layout">
+
+        <ImageButton
+            android:id="@+id/bfoodcategory"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/food_categories"
+            android:scaleType="fitCenter"
+            android:background="@drawable/grid_button"
+            android:contentDescription="@string/booking" />
+
+        <ImageButton
+            android:id="@+id/border"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/bfoodcategory"
+            android:layout_toEndOf="@+id/bfoodcategory"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/order"
+            android:scaleType="fitXY"
+            android:background="@drawable/grid_button"
+            android:contentDescription="@string/search" />
+
+        <ImageButton
+            android:id="@+id/bbook"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/border"
+            android:layout_toEndOf="@+id/border"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/booking"
+            android:scaleType="fitXY"
+            android:background="@drawable/grid_button"
+            android:contentDescription="@string/search" />
+
+        <ImageButton
+            android:id="@+id/bfeedback"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/bbook"
+            android:layout_toEndOf="@+id/bbook"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/feedback"
+            android:scaleType="fitXY"
+            android:background="@drawable/grid_button"
+            android:contentDescription="@string/feedback" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
