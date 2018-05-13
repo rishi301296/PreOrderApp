@@ -8,35 +8,6 @@
     android:background="#f1cae7ff"
     tools:context=".CustomerProfile.CustomerProfileActivity">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@drawable/topborder"
-        android:scaleType="fitXY"
-        android:layout_alignParentTop="true"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/customer"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#ffff6508"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:fontFamily="serif"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
     <ImageButton
         android:id="@+id/beditprofile"
         android:layout_width="30dp"

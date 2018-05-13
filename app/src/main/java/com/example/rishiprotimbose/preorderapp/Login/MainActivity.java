@@ -2,6 +2,7 @@ package com.example.rishiprotimbose.preorderapp.Login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -30,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends Activity {
 
     final private static int REQ_CODE = 1024;
+    private static Typeface amarante, comfortaa;
 
     private EditText email, password;
     private FirebaseAuth firebaseAuth;
@@ -67,10 +69,18 @@ public class MainActivity extends Activity {
         reference = FirebaseDatabase.getInstance().getReference();
         progress = findViewById(R.id.progressbarlogin);
 
+        amarante = Typeface.createFromAsset(getAssets(),"fonts/amarante.ttf");
+        comfortaa = Typeface.createFromAsset(getAssets(),"fonts/comfortaa.ttf");
+
+        ((TextView) findViewById(R.id.tvpreorder)).setTypeface(amarante);
+        ((TextView) findViewById(R.id.tvdesc)).setTypeface(amarante);
         email = (EditText) findViewById(R.id.etemail);
+        email.setTypeface(comfortaa);
         password = (EditText) findViewById(R.id.etpassword);
+        password.setTypeface(comfortaa);
         signup = (TextView) findViewById(R.id.tvsignup);
-        login = (Button) findViewById(R.id.blogin);
+        signup.setTypeface(comfortaa);
+        login = (Button) findViewById(R.id.bsignup);
     }
 
     private void userLogin() {

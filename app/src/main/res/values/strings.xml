@@ -8,11 +8,11 @@
     <string name="signup">SignUp</string>
     <string name="new_user_register">New User? Register</string>
     <string name="login">Login</string>
-    <string name="preorder_app">Preorder App</string>
+    <string name="preorder">PreOrder</string>
     <string name="get_location">Get Location</string>
     <string name="dealer">Dealer</string>
     <string name="customer">Customer</string>
-    <string-array name="businesstype">
+    <string-array name="businesstypes">
         <item>Restaurants</item>
         <item>Grocery Store</item>
     </string-array>
@@ -46,4 +46,5 @@
     <string name="registered_dealers">Registered Dealers</string>
     <string name="unregistered_dealers">Unregistered Dealers</string>
     <string name="current_location">current location</string>
+    <string name="why_just_order_when_you_can_preorder">Why just order? When you can PreOrder</string>
 </resources>

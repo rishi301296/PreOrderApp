@@ -1,21 +1,32 @@
 package com.example.rishiprotimbose.preorderapp.Login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rishiprotimbose.preorderapp.Adapter.CustomSpinnerAdapter;
 import com.example.rishiprotimbose.preorderapp.CustomerProfile.CustomerProfileActivity;
 import com.example.rishiprotimbose.preorderapp.DealerProfile.DealerProfileActivity;
 import com.example.rishiprotimbose.preorderapp.R;
@@ -29,10 +40,15 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SignupActivity extends Activity {
 
     public static final int REQUEST_CODE_GETLOCATION = 404;
 
+    private static Typeface amarante, comfortaa;
     private EditText name, email, password, phonenumber;
     private Button bsignup;
     private ProgressBar progress;
@@ -100,19 +116,29 @@ public class SignupActivity extends Activity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
 
+        amarante = Typeface.createFromAsset(getAssets(),"fonts/amarante.ttf");
+        comfortaa = Typeface.createFromAsset(getAssets(),"fonts/comfortaa.ttf");
+
+        ((TextView) findViewById(R.id.textView2)).setTypeface(amarante);
         progress = (ProgressBar) findViewById(R.id.progressbarsignup);
         name = (EditText) findViewById(R.id.etname);
+        name.setTypeface(comfortaa);
         password = (EditText) findViewById(R.id.etpassword);
+        password.setTypeface(comfortaa);
         email = (EditText) findViewById(R.id.etemail);
+        email.setTypeface(comfortaa);
         phonenumber = (EditText) findViewById(R.id.etphonenumber);
+        phonenumber.setTypeface(comfortaa);
         bsignup = (Button) findViewById(R.id.bsignup);
         customer = (RadioButton) findViewById(R.id.rbcustomer);
+        customer.setTypeface(amarante);
         dealer = (RadioButton) findViewById(R.id.rbdealer);
+        dealer.setTypeface(amarante);
         businesstype = (Spinner) findViewById(R.id.sbusinesstype);
         getlocation = (CheckBox) findViewById(R.id.cbgetlocation);
 
-        adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.businesstype, android.R.layout.simple_gallery_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
+        adapter = new CustomSpinnerAdapter(this, R.layout.spinner_item, getResources().getStringArray(R.array.businesstypes), comfortaa);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         businesstype.setAdapter(adapter);
     }
 
@@ -215,13 +241,13 @@ public class SignupActivity extends Activity {
 
     private void customerOn() {
         clear_all();
-        businesstype.setVisibility(View.INVISIBLE);
+        ((LinearLayout) findViewById(R.id.sbusiness)).setVisibility(View.INVISIBLE);
         getlocation.setVisibility(View.INVISIBLE);
     }
 
     private void dealerOn() {
         clear_all();
-        businesstype.setVisibility(View.VISIBLE);
+        ((LinearLayout) findViewById(R.id.sbusiness)).setVisibility(View.VISIBLE);
         getlocation.setVisibility(View.VISIBLE);
     }
 
@@ -236,6 +262,8 @@ public class SignupActivity extends Activity {
 
     private void reset_latlon() {
         getlocation.setChecked(false);
+        latitude = null;
+        longitude = null;
     }
 
     private boolean checkValidity(String Auth, String Email, String Password, String PhoneNumber, String Name, CheckBox getlocation) {

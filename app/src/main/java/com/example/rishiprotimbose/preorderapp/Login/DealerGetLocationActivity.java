@@ -72,35 +72,7 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dealer_get_location);
 
-        reference = FirebaseDatabase.getInstance().getReference();
-        registeredRestaurants = new HashMap<>();
-        ibgo = (ImageButton) findViewById(R.id.ibsearch);
-        ibcur = (ImageButton) findViewById(R.id.ibcur);
-        etsearch = (EditText) findViewById(R.id.etsearch);
-        BusinessType = getIntent().getExtras().getString("BUSINESS_TYPE");
-
-        options = new MarkerOptions()
-        .draggable(true)
-        .anchor(0.5f, 0.8f);
-
         getLocationPermission();
-        init();
-
-        ibgo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!DealerGetLocationActivity.registeredRestaurants.containsKey(String.valueOf(marker.getPosition().latitude) + String.valueOf(marker.getPosition().longitude))) {
-                    Intent intent = new Intent();
-                    intent.putExtra(LATITUDE, String.valueOf(marker.getPosition().latitude));
-                    intent.putExtra(LONGITUDE, String.valueOf(marker.getPosition().longitude));
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                }
-                else {
-                    Toast.makeText(view.getContext(), "The dealer is already registered!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         ibcur.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +181,17 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
     }
 
     private void init() {
+        reference = FirebaseDatabase.getInstance().getReference();
+        registeredRestaurants = new HashMap<>();
+        ibgo = (ImageButton) findViewById(R.id.ibsearch);
+        ibcur = (ImageButton) findViewById(R.id.ibcur);
+        etsearch = (EditText) findViewById(R.id.etsearch);
+        BusinessType = getIntent().getExtras().getString("BUSINESS_TYPE");
+
+        options = new MarkerOptions()
+                .draggable(true)
+                .anchor(0.5f, 0.8f);
+
         etsearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -219,6 +202,22 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
                     geoLocate();
                 }
                 return false;
+            }
+        });
+
+        ibgo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!DealerGetLocationActivity.registeredRestaurants.containsKey(String.valueOf(marker.getPosition().latitude) + String.valueOf(marker.getPosition().longitude))) {
+                    Intent intent = new Intent();
+                    intent.putExtra(LATITUDE, String.valueOf(marker.getPosition().latitude));
+                    intent.putExtra(LONGITUDE, String.valueOf(marker.getPosition().longitude));
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(view.getContext(), "The dealer is already registered!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

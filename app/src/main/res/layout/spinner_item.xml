@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/text1"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
+    android:layout_height="40dp"
     android:background="@drawable/shape_layout"
     android:textSize="18sp"
-    android:textColor="#666666" />
+    android:textColor="#55ffffff" />

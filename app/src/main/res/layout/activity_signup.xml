@@ -1,263 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:background="@color/BackgroundDeep"
     tools:context="com.example.rishiprotimbose.preorderapp.Login.SignupActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/signup"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#ddfdaa55"
-        android:textStyle="bold|italic"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/Background"
+        android:layout_margin="5dp">
 
-    <RadioGroup
-        android:id="@+id/rgownertype"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:checkedButton="@+id/rbcustomer"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.042">
-
-        <RadioButton
-            android:id="@+id/rbcustomer"
-            style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
-            android:layout_width="152dp"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:checked="true"
-            android:duplicateParentState="false"
-            android:text="@string/customer"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rbdealer"
-            app:layout_constraintHorizontal_bias="0.576"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.022" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/TextBackground"
+            android:text="@string/signup"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/Header"
+            android:textStyle="bold|italic" />
 
-        <RadioButton
-            android:id="@+id/rbdealer"
-            style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
-            android:layout_width="149dp"
+        <RadioGroup
+            android:id="@+id/rgownertype"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:padding="8dp"
-            android:text="@string/dealer"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.022" />
+            android:layout_margin="8dp"
+            android:checkedButton="@+id/rbcustomer"
+            android:orientation="horizontal">
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/rbcustomer"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:checked="true"
+                android:duplicateParentState="false"
+                android:text="@string/customer" />
 
-    <EditText
-        android:id="@+id/etname"
+            <RadioButton
+                android:id="@+id/rbdealer"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
+                android:layout_width="149dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/dealer" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/shape_layout"
-        android:drawableEnd="@drawable/ic_action_name"
-        android:drawableRight="@drawable/ic_action_name"
-        android:ems="10"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        android:textColor="#ffffffff"
-        android:textColorHint="#55ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgownertype"
-        app:layout_constraintVertical_bias="0.025" />
+        android:layout_height="match_parent"
+        android:padding="5dp" >
 
-    <EditText
-        android:id="@+id/etemail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/shape_layout"
-        android:drawableEnd="@drawable/ic_action_email"
-        android:drawableRight="@drawable/ic_action_email"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:textColor="#ffffffff"
-        android:textColorHint="#55ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etname"
-        app:layout_constraintVertical_bias="0.0" />
+        <ImageView
+            android:contentDescription="@string/preorder"
+            android:id="@+id/ivlogin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/food"
+            android:scaleType="centerCrop" />
 
-    <EditText
-        android:id="@+id/etpassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/shape_layout"
-        android:drawableEnd="@drawable/ic_action_password"
-        android:drawableRight="@drawable/ic_action_password"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textColor="#ffffffff"
-        android:textColorHint="#55ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etemail"
-        app:layout_constraintVertical_bias="0.0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_alignParentTop="true">
 
-    <EditText
-        android:id="@+id/etphonenumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/shape_layout"
-        android:drawableEnd="@drawable/ic_action_phone"
-        android:drawableRight="@drawable/ic_action_phone"
-        android:ems="10"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:textColor="#ffffffff"
-        android:textColorHint="#55ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etpassword"
-        app:layout_constraintVertical_bias="0.0" />
+            <ProgressBar
+                android:id="@+id/progressbarsignup"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_atop"
+                android:indeterminateTint="@color/colorPrimary"
+                android:visibility="invisible"/>
 
-    <ProgressBar
-        android:id="@+id/progressbarsignup"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large.Inverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:progressDrawable="@android:color/holo_green_dark"
-        android:visibility="invisible"
-        android:focusedByDefault="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgownertype"
-        app:layout_constraintVertical_bias="0.194" />
+            <EditText
+                android:id="@+id/etname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_layout"
+                android:drawableEnd="@drawable/ic_action_name"
+                android:drawableRight="@drawable/ic_action_name"
+                android:ems="10"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:textColor="#ffffffff"
+                android:textColorHint="#55ffffff"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
 
-    <Spinner
-        android:id="@+id/sbusinesstype"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        style="@android:style/Widget.TextView.SpinnerItem"
-        android:background="@drawable/shape_layout"
-        android:prompt="@string/select_business_type"
-        android:drawSelectorOnTop="true"
-        android:dropDownWidth="60dp"
-        android:minWidth="600dp"
-        android:spinnerMode="dialog"
-        android:textAlignment="gravity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etphonenumber"
-        app:layout_constraintVertical_bias="0.0" />
+            <EditText
+                android:id="@+id/etemail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_layout"
+                android:drawableEnd="@drawable/ic_action_email"
+                android:drawableRight="@drawable/ic_action_email"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColor="#ffffffff"
+                android:textColorHint="#55ffffff" />
 
-    <CheckBox
-        android:id="@+id/cbgetlocation"
-        style="@android:style/Widget.DeviceDefault.Light.CompoundButton.CheckBox"
-        android:layout_width="180dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:drawableEnd="@drawable/ic_action_getlocation"
-        android:drawableRight="@drawable/ic_action_getlocation"
-        android:text="@string/get_location"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#ddffffff"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sbusinesstype"
-        app:layout_constraintVertical_bias="0.0" />
+            <EditText
+                android:id="@+id/etpassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_layout"
+                android:drawableEnd="@drawable/ic_action_password"
+                android:drawableRight="@drawable/ic_action_password"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="#ffffffff"
+                android:textColorHint="#55ffffff" />
 
-    <Button
-        android:id="@+id/bsignup"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/signup"
-        android:textColor="#ffeeeeee"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbgetlocation"
-        app:layout_constraintVertical_bias="0.149" />
+            <EditText
+                android:id="@+id/etphonenumber"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_layout"
+                android:drawableEnd="@drawable/ic_action_phone"
+                android:drawableRight="@drawable/ic_action_phone"
+                android:maxLength="10"
+                android:minEms="10"
+                android:maxEms="10"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:textColor="#ffffffff"
+                android:textColorHint="#55ffffff" />
 
-</android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/sbusiness"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="@drawable/shape_layout"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" >
+
+                <Spinner
+                    android:id="@+id/sbusinesstype"
+                    style="@style/Widget.AppCompat.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawSelectorOnTop="true"
+                    android:dropDownWidth="match_parent"
+                    android:dropDownHeight="-40dp"
+                    android:popupBackground="@drawable/shape_layout"
+                    android:dropDownSelector="@color/BackgroundDeep"
+                    android:prompt="@string/select_business_type" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cbgetlocation"
+                style="@android:style/Widget.DeviceDefault.Light.CompoundButton.CheckBox"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:drawableEnd="@drawable/ic_action_getlocation"
+                android:drawableRight="@drawable/ic_action_getlocation"
+                android:text="@string/get_location"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#ddffffff"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/bsignup"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/button_state"
+                android:text="@string/signup"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

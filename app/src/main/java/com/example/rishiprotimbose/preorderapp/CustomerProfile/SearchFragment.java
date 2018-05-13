@@ -82,7 +82,7 @@ public class SearchFragment extends Fragment {
             recyclerView.setAdapter(customAdapter);
         }
 
-        adapter = ArrayAdapter.createFromResource(mView.getContext(), R.array.businesstype, android.R.layout.simple_gallery_item);
+        adapter = ArrayAdapter.createFromResource(mView.getContext(), R.array.businesstypes, android.R.layout.simple_gallery_item);
         adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
         spinner.setAdapter(adapter);
     }
