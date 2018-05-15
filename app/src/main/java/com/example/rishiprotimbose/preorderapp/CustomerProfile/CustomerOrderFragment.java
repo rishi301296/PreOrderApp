@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 public class CustomerOrderFragment extends Fragment {
 
@@ -181,7 +182,6 @@ public class CustomerOrderFragment extends Fragment {
     }
 
     private void placeOrder() {
-
         List<String> FoodTypes = new ArrayList<>(), FoodQty = new ArrayList<>();
         for(int i=0; i<gridLayout.getChildCount(); i++) {
             TextView tvFood = getTextViewFoodType(i), tvQty = getTextViewFoodQty(i);
@@ -196,14 +196,16 @@ public class CustomerOrderFragment extends Fragment {
             return;
         }
 
-        Orders orders = new Orders(FoodTypes, FoodQty);
+        Orders orders = new Orders(FoodTypes, FoodQty, CustomerProfileActivity.current_latlng, Time.);
 
         String serial_key = CustomerProfileActivity.customer_key.substring(2, 6)+CustomerProfileActivity.businesstype[1].substring(2,6);
         CustomerProfileActivity.reference.child("PlacedOrder")
+                .child("Restaurants")
                 .child(CustomerProfileActivity.customer_key)
                 .child(CustomerProfileActivity.businesstype[1])
                 .child(serial_key).setValue(orders);
         CustomerProfileActivity.reference.child("PlacedOrder")
+                .child("Restaurants")
                 .child(CustomerProfileActivity.businesstype[1])
                 .child(CustomerProfileActivity.customer_key)
                 .child(serial_key).setValue(orders);

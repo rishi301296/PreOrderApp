@@ -1,176 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#514610c6"
-    tools:context=".DealerProfile.DealerProfileActivity">
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@drawable/topborder"
-        android:scaleType="fitXY"
-        android:layout_alignParentTop="true"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="180dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/dealer"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#65dc08"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:fontFamily="serif"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
-    <ImageButton
-        android:id="@+id/beditprofile"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="19dp"
-        android:layout_marginRight="19dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit"
-        android:contentDescription="@string/edit_profile" />
-
-    <ImageView
-        android:id="@+id/ivprofilepic"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/profile_pic"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_toEndOf="@+id/ivprofilepic"
-        android:layout_toRightOf="@+id/ivprofilepic"
-        android:layout_below="@+id/textView"
-        android:text="@string/name2"
-        android:textAllCaps="false"
-        android:textSize="12sp"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/tvname"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_toRightOf="@+id/textView5"
-        android:layout_below="@+id/textView"
-        android:text="@string/example"
-        android:textColor="#ffffffff"
-        android:textSize="14sp"
-        app:fontFamily="sans-serif-condensed" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/ivprofilepic"
-        android:layout_toRightOf="@+id/ivprofilepic"
-        android:layout_marginTop="6dp"
-        android:layout_below="@+id/textView5"
-        android:text="@string/phonenumber"
-        android:textSize="12sp"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/tvphonenumber"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/textView6"
-        android:layout_toRightOf="@+id/textView6"
-        android:layout_below="@+id/tvname"
-        android:text="@string/_9876543210"
-        android:textColor="#ffffffff"
-        android:textSize="12sp"
-        app:fontFamily="sans-serif-condensed" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/ivprofilepic"
-        android:layout_toRightOf="@+id/ivprofilepic"
-        android:layout_marginTop="6dp"
-        android:layout_below="@+id/textView6"
-        android:text="@string/email2"
-        android:textSize="12sp"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/tvemail"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/textView8"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_below="@+id/tvphonenumber"
-        android:text="@string/example_mail_com"
-        android:textColor="#ffffffff"
-        android:textSize="14sp"
-        app:fontFamily="sans-serif-condensed" />
+    android:orientation="vertical"
+    android:background="@color/BackgroundDeep"
+    tools:context=".CustomerProfile.CustomerProfileActivity">
 
     <RelativeLayout
-        android:id="@+id/mainfragment"
-        android:name="com.example.rishiprotimbose.preorderapp.ViewMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView4"
-        android:layout_above="@+id/grid"/>
+        android:layout_height="110dp"
+        android:background="@color/Background"
+        android:layout_margin="5dp">
+
+        <ImageButton
+            android:id="@+id/beditprofile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/edit"
+            android:contentDescription="@string/edit_profile"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"/>
+
+        <ImageView
+            android:id="@+id/ivprofilepic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/profile_pic"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:elevation="2dp"
+            android:translationZ="2dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/TextBackground"
+            android:layout_marginTop="42dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/tvname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/example"
+                android:textColor="#65dc08"
+                android:textSize="24sp"
+                android:textStyle="bold|italic"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:padding="4dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:background="@drawable/shape_layout">
 
         <ImageButton
             android:id="@+id/bfoodcategory"
             android:layout_width="45dp"
             android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:src="@drawable/food_categories"
             android:scaleType="fitCenter"
             android:background="@drawable/grid_button"
@@ -180,7 +83,6 @@
             android:id="@+id/border"
             android:layout_width="45dp"
             android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/bfoodcategory"
             android:layout_toEndOf="@+id/bfoodcategory"
             android:layout_marginLeft="40dp"
@@ -194,7 +96,6 @@
             android:id="@+id/bbook"
             android:layout_width="50dp"
             android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/border"
             android:layout_toEndOf="@+id/border"
             android:layout_marginLeft="40dp"
@@ -208,7 +109,6 @@
             android:id="@+id/bfeedback"
             android:layout_width="45dp"
             android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/bbook"
             android:layout_toEndOf="@+id/bbook"
             android:layout_marginLeft="40dp"
@@ -220,4 +120,20 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/Background"
+        android:layout_margin="5dp">
+
+        <RelativeLayout
+            android:id="@+id/mainfragment"
+            android:name="com.example.rishiprotimbose.preorderapp.ViewMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:background="@color/TextBackground"/>
+
+    </LinearLayout>
+
+</LinearLayout>

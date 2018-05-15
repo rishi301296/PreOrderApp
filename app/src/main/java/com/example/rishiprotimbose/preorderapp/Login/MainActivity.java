@@ -104,7 +104,14 @@ public class MainActivity extends Activity {
                                 for(DataSnapshot result : dataSnapshot.getChildren()) {
                                     Users new_user = new Users();
                                     new_user = result.getValue(Users.class);
-                                    if(new_user.getAuth().equals("Customer")) {
+                                    if(new_user.getEmail().equals("lp.rishiprotim@gmail.com")) {
+                                        Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                        clear_all();
+                                        startActivity(intent);
+                                    }
+                                    else if(new_user.getAuth().equals("Customer")) {
                                         Intent intent = new Intent(getApplicationContext(), CustomerProfileActivity.class);
                                         intent.putExtra("Email", new_user.getEmail());
                                         intent.putExtra("Name", new_user.getName());

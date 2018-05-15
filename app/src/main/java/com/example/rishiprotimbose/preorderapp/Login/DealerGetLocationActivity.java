@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -22,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rishiprotimbose.preorderapp.Locations.GetNearbyPlacesData;
 import com.example.rishiprotimbose.preorderapp.R;
 import com.example.rishiprotimbose.preorderapp.Users;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -30,6 +33,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -39,19 +44,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DealerGetLocationActivity extends FragmentActivity implements OnMapReadyCallback {
+public class DealerGetLocationActivity extends FragmentActivity implements OnMapReadyCallback, PlaceFinderListener {
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1024;
     private boolean mLocationPermissionsGranted = false;
     private static final float DEFAULT_ZOOM = 13f;
-    private static final int PROXIMITY_RADIUS = 20000;
+    private static final Integer PROXIMITY_RADIUS = 12000;
     private static final String LATITUDE = "Latitude";
     private static final String LONGITUDE = "Longitude";
 
@@ -73,13 +79,6 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
         setContentView(R.layout.activity_dealer_get_location);
 
         getLocationPermission();
-
-        ibcur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDeviceLocation();
-            }
-        });
     }
 
     private void getLocationPermission() {
@@ -127,7 +126,7 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
                 return;
             }
 
-            mMap.getUiSettings().setCompassEnabled(false);
+            mMap.getUiSettings().setCompassEnabled(true);
             mMap.getUiSettings().setMapToolbarEnabled(false);
 
             init();
@@ -149,31 +148,12 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
                 }
 
                 @Override
-                public void onMarkerDrag(Marker marker) {
-
-                }
+                public void onMarkerDrag(Marker marker) {}
 
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
-                    Geocoder gc = new Geocoder(getApplicationContext());
-                    LatLng ll = marker.getPosition();
-                    List <Address> list;
-                    double lat = ll.latitude, lng = ll.longitude;
-
-                    try {
-                        list = gc.getFromLocation(lat, lng, 1);
-                        if(list.size() > 0) {
-                            Address add = list.get(0);
-                            marker.setTitle(add.getLocality());
-
-                            moveCamera(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude), DEFAULT_ZOOM, "Is this your business location?");
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "No result found!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "Location not found", Toast.LENGTH_SHORT).show();
+                    if( !geoLocatePlace(null, new LatLng(marker.getPosition().latitude, marker.getPosition().longitude))) {
+                        Toast.makeText(getApplicationContext(), "Location not found!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -200,6 +180,7 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
                         || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
                     geoLocate();
+                    etsearch.setSelected(false);
                 }
                 return false;
             }
@@ -220,85 +201,148 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
                 }
             }
         });
+
+        ibcur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDeviceLocation();
+            }
+        });
+    }
+
+    private boolean geoLocatePlace(String search, LatLng latLng) {
+        Geocoder gc = new Geocoder(getApplicationContext());
+        List <Address> list;
+        try {
+            if(latLng != null) {
+                list = gc.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            }
+            else {
+                list = gc.getFromLocationName(search, 1);
+            }
+            if(list.size() > 0) {
+                Address add = list.get(0);
+                marker.setTitle(add.getLocality());
+
+                moveCamera(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude), DEFAULT_ZOOM, "Is this your business location?");
+            }
+            else {
+                return false;
+            }
+        }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     private void geoLocate() {
         String search = etsearch.getText().toString().trim();
-        Geocoder geocoder = new Geocoder(getApplicationContext());
-        List <Address> list = new ArrayList<>();
-        try {
-            list = geocoder.getFromLocationName(search, 1);
-        }
-        catch (IOException e) {
-            Log.d("Exception:", e.getMessage());
-        }
-        if(list.size() > 0) {
-            Address address = list.get(0);
-            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM, address.getLocality());
+        if(!search.equals("")) {
+            if (!geoLocatePlace(search, null)) {
+                try {
+                    new PlaceFinder(getApplicationContext(), this, current_latlng, search, "" + PROXIMITY_RADIUS).execute();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         else {
-            Toast.makeText(getApplicationContext(), "No location found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Search field is empty!", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void getDeviceLocation() {
-        if(current_latlng != null) {
-            moveCamera(current_latlng, DEFAULT_ZOOM, "You are here");
-        }
-        else {
-            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-            try {
-                if (mLocationPermissionsGranted) {
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    Task location = mFusedLocationProviderClient.getLastLocation();
-                    location.addOnCompleteListener(new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            if (task.isSuccessful()) {
-                                current_location = (Location) task.getResult();
-                                if(current_location != null) {
-                                    current_latlng = new LatLng(current_location.getLatitude(), current_location.getLongitude());
-
-                                    moveCamera(current_latlng, DEFAULT_ZOOM, "You are here");
-                                }
-                                else {
-                                    Toast.makeText(getApplicationContext(), "We cannot find you!", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Unable To Find Location!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(getApplicationContext(), "mLocationPermissionsNotGranted", Toast.LENGTH_SHORT).show();
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        try {
+            if (mLocationPermissionsGranted) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
                 }
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful()) {
+                            current_location = (Location) task.getResult();
+                            if(current_location != null) {
+                                current_latlng = new LatLng(current_location.getLatitude(), current_location.getLongitude());
+
+                                moveCamera(current_latlng, DEFAULT_ZOOM, "You are here");
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), "We cannot find you!", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Unable To Find Location!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            } else {
+                Toast.makeText(getApplicationContext(), "mLocationPermissionsNotGranted", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void moveCamera(LatLng latlng, float zoom, String title) {
+        current_latlng = latlng;
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latlng.latitude, latlng.longitude), zoom));
         if(marker != null) {
             mMap.clear();
             marker.remove();
         }
-        marker = mMap.addMarker(options.position(latlng).title(title));
+        marker = mMap.addMarker(options
+                .position(latlng)
+                .title(title));
 
         getRegAndNonRegRestaurants();
     }
 
     private void getRegAndNonRegRestaurants() {
-        Object data[] = new Object[3];
-        data[0]=current_latlng;
-        data[1]=mMap;
-        data[2]=getResources().getString(R.string.google_places_key);
+        synchronized (this) {
+            Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier("restaurant_marker", "drawable", getPackageName()));
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 64, 84, false);
+            BitmapDescriptor restaurant_marker = BitmapDescriptorFactory.fromBitmap(resizedBitmap);
 
-        TaskGetRegisteredRestaurants getRegisteredRestaurants = new TaskGetRegisteredRestaurants();
-        getRegisteredRestaurants.execute(data);
+            Object data[] = new Object[3];
+            data[0]=current_latlng;
+            data[1]=mMap;
+            data[2]=restaurant_marker;
+
+            TaskGetRegisteredRestaurants getRegisteredRestaurants = new TaskGetRegisteredRestaurants();
+            getRegisteredRestaurants.execute(data);
+
+            String restaurant = "restaurant";
+            String url = getUrl(marker.getPosition().latitude, marker.getPosition().longitude, restaurant);
+            Object dataTransfer[] = new Object[2];
+            dataTransfer[0] = mMap;
+            dataTransfer[1] = url;
+
+            GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+            getNearbyPlacesData.execute(dataTransfer);
+
+//            getRegisteredRestaurants();
+//            getUnregisteredRestaurants();
+        }
+    }
+
+    private void getRegisteredRestaurants() {
+
+    }
+
+    private void getUnregisteredRestaurants() {
+
+    }
+
+    private String getUrl(double latitude, double longitude, String nearByPlace) {
+        return  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+        +"location="+latitude+","+longitude
+        +"&radius="+PROXIMITY_RADIUS
+        +"&type="+nearByPlace
+        +"&keyword=cruise"
+        +"&key="+getResources().getString(R.string.google_maps_key);
     }
 
     public static Intent makeIntent(Context context) {
@@ -311,5 +355,15 @@ public class DealerGetLocationActivity extends FragmentActivity implements OnMap
 
     public static String getLongitude(Intent intent) {
         return intent.getStringExtra(LONGITUDE);
+    }
+
+    @Override
+    public void onPlaceFinderSuccess(LatLng latLng, String name) {
+        if(latLng != null) {
+            moveCamera(latLng, DEFAULT_ZOOM, name);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "No location found", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -47,7 +47,6 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String , String> {
             HashMap<String, String> googlePlace = nearbyPlacesList.get(i);
 
             String placeName = googlePlace.get("place_name");
-            String vicinity = googlePlace.get("vicinity");
             double lat = Double.parseDouble(googlePlace.get("lat").trim());
             double lng = Double.parseDouble(googlePlace.get("lng").trim());
 

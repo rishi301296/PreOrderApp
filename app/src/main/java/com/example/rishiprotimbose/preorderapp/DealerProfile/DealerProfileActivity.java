@@ -1,5 +1,6 @@
 package com.example.rishiprotimbose.preorderapp.DealerProfile;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -25,11 +26,10 @@ public class DealerProfileActivity extends AppCompatActivity {
     public static DatabaseReference reference;
     public static android.support.v4.app.FragmentManager fragmentManager;
     public static TextView tvname;
-    public static TextView tvphonenumber;
-    public static TextView tvemail;
     private static ImageButton border, bbook, bfoodcategory, bfeedback, beditprofile;
     public static Users dealer;
     public static String dealer_key;
+    private static Typeface comfortaa, colourbars_bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,9 @@ public class DealerProfileActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         fragmentManager = getSupportFragmentManager();
 
+        comfortaa = Typeface.createFromAsset(getAssets(), "fonts/comfortaa.ttf");
+        colourbars_bd = Typeface.createFromAsset(getAssets(), "fonts/colourbars_bd.ttf");
+
         dealer = new Users();
         dealer.setName(getIntent().getExtras().getString("Name"));
         dealer.setEmail(getIntent().getExtras().getString("Email"));
@@ -63,17 +66,14 @@ public class DealerProfileActivity extends AppCompatActivity {
         dealer.setAuth("Dealer");
         dealer_key = getIntent().getExtras().getString("Key");
 
-        tvemail = (TextView) findViewById(R.id.tvemail);
         tvname = (TextView) findViewById(R.id.tvname);
-        tvphonenumber = (TextView) findViewById(R.id.tvphonenumber);
+        tvname.setTypeface(colourbars_bd);
         border = (ImageButton) findViewById(R.id.border);
         bbook = (ImageButton) findViewById(R.id.bbook);
         bfoodcategory = (ImageButton) findViewById(R.id.bfoodcategory);
         bfeedback = (ImageButton) findViewById(R.id.bfeedback);
         beditprofile = (ImageButton) findViewById(R.id.beditprofile);
         tvname.setText(dealer.getName());
-        tvemail.setText(dealer.getEmail());
-        tvphonenumber.setText(dealer.getPhoneNumber());
 
         reference.child("OrderTypes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

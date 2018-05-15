@@ -177,7 +177,7 @@
                     android:layout_height="match_parent"
                     android:drawSelectorOnTop="true"
                     android:dropDownWidth="match_parent"
-                    android:dropDownHeight="-40dp"
+                    android:dropDownHeight="70dp"
                     android:popupBackground="@drawable/shape_layout"
                     android:dropDownSelector="@color/BackgroundDeep"
                     android:prompt="@string/select_business_type" />

@@ -47,4 +47,5 @@
     <string name="unregistered_dealers">Unregistered Dealers</string>
     <string name="current_location">current location</string>
     <string name="why_just_order_when_you_can_preorder">Why just order? When you can PreOrder</string>
+    <string name="title_activity_admin">AdminActivity</string>
 </resources>

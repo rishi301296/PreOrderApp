@@ -2,6 +2,7 @@ package com.example.rishiprotimbose.preorderapp.CustomerProfile;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,8 +47,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     public static MarkerOptions options;
     public static android.support.v4.app.FragmentManager fragmentManager;
     public static TextView tvname;
-    public static TextView tvphonenumber;
-    public static TextView tvemail;
+    private static Typeface comfortaa, colourbars_bd;
     private static ImageButton bviewmap;
     private static ImageButton bsearch;
     private static ImageButton bfeedback;
@@ -83,6 +83,9 @@ public class CustomerProfileActivity extends AppCompatActivity {
         ruk_m = new HashMap<>();
         rum_k = new HashMap<>();
 
+        comfortaa = Typeface.createFromAsset(getAssets(), "fonts/comfortaa.ttf");
+        colourbars_bd = Typeface.createFromAsset(getAssets(), "fonts/colourbars_bd.ttf");
+
         customer = new Users(
                 "Customer",
                 getIntent().getExtras().getString("Name"),
@@ -91,16 +94,13 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 );
         customer_key = getIntent().getExtras().getString("Key");
 
-        tvemail = (TextView) findViewById(R.id.tvemail);
         tvname = (TextView) findViewById(R.id.tvname);
-        tvphonenumber = (TextView) findViewById(R.id.tvphonenumber);
+        tvname.setTypeface(colourbars_bd);
         bviewmap = (ImageButton) findViewById(R.id.bviewmap);
         bsearch = (ImageButton) findViewById(R.id.bsearch);
         bfeedback = (ImageButton) findViewById(R.id.bfeedback);
         beditprofile = (ImageButton) findViewById(R.id.beditprofile);
         tvname.setText(customer.getName());
-        tvemail.setText(customer.getEmail());
-        tvphonenumber.setText(customer.getPhoneNumber());
 
         restaurants = new ArrayList<>();
         grocery = new ArrayList<>();

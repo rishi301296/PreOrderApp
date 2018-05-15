@@ -267,6 +267,11 @@ public class SignupActivity extends Activity {
     }
 
     private boolean checkValidity(String Auth, String Email, String Password, String PhoneNumber, String Name, CheckBox getlocation) {
+        if (TextUtils.isEmpty(Name)) {
+            Toast.makeText(getApplicationContext(), "Name is missing!", Toast.LENGTH_SHORT).show();
+            name.setFocusable(true);
+            return false;
+        }
         if (TextUtils.isEmpty(Email)) {
             Toast.makeText(getApplicationContext(), "Email is missing!", Toast.LENGTH_SHORT).show();
             email.setFocusable(true);
@@ -275,11 +280,6 @@ public class SignupActivity extends Activity {
         if (TextUtils.isEmpty(Password)) {
             Toast.makeText(getApplicationContext(), "Password is missing!", Toast.LENGTH_SHORT).show();
             password.setFocusable(true);
-            return false;
-        }
-        if (TextUtils.isEmpty(Name)) {
-            Toast.makeText(getApplicationContext(), "Name is missing!", Toast.LENGTH_SHORT).show();
-            name.setFocusable(true);
             return false;
         }
         if (TextUtils.isEmpty(PhoneNumber)) {
